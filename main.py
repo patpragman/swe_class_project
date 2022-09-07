@@ -6,6 +6,7 @@ By:
 App Title
 """
 
+import App
 
 if __name__ == "__main__":
     print("obligatory hello world!")
