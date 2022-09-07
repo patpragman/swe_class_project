@@ -250,7 +250,8 @@ Now how do I get my code to the repo?  Simple!
 
 ```git push```
 
-
+This triggers the creation of a "pull request" on the github page.  At that point, we do the last human check
+and the code gets merged!
 
 # Recap
 
@@ -260,4 +261,9 @@ So, how does this work?
 2. You add that code to the current commit
 3. You commit the code
 4. You push the code to the development branch
-5. 
+5. The robots check to make sure we didn't break anything.
+6. We get a pull request that humans approve
+7. We merge the pull request back into master.
+8. The robot deploys the changes.
+
+That's it.  You write code, and the robot does the heavy lifting!
