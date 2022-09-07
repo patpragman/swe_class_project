@@ -1,6 +1,7 @@
 """
 unit tests for all the appropriate classes in the app go here
 """
+print("Running Unit Tests!")
 import sys
 
 # check that the app module imports at all
