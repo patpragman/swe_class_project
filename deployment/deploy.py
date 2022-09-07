@@ -26,4 +26,3 @@ sys.path.append(
 code to deploy the application goes below here:
 """
 print("Nothing has been set up yet!")
-assert False  #  We're not deploying anything yet, so we should raise an error yet
