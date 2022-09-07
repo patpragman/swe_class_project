@@ -1,4 +1,4 @@
-# This workflow will install Python dependencies and run tests (not worryign about linting for now...)
+# This workflow will install Python dependencies and run test (not worryign about linting for now...)
 
 name: Run Tests on Push to Dev
 
@@ -29,6 +29,6 @@ jobs:
 
     - name: Run Tests
       run: |
-        python tests/integration/integration.py
-        python tests/unit/unit_test.py
+        python test/integration.py
+        python test/unit_test.py
         
