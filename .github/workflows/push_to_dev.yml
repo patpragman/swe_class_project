@@ -29,6 +29,6 @@ jobs:
 
     - name: Run Tests
       run: |
-        python test/integration.py
-        python test/unit_test.py
+        python test/integration_tests.py
+        python test/unit_tests.py
         
