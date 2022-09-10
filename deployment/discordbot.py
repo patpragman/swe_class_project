@@ -20,6 +20,6 @@ async def on_ready():
     await channel.send(f"Recent push to develop branch by {USER}")
 
     # kill the discord bot, exit the code, and don't raise an error - hacky I know, but it works
-    os._exit(1)
+    os._exit(0)
 
 client.run(DISCORD_TOKEN)
