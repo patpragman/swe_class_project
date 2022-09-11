@@ -35,4 +35,22 @@ if __name__ == "__main__":
     for module_name in desired_imports:
         assert module_name in sys.modules
 
+
+    # let's import Flashcard class and test it
+    from App.model import FlashCard
+    from datetime import datetime, timedelta
+
+    test_card = FlashCard(
+        folder="test / not import",
+        front_text="test_card_front",
+        back_text="test_card_back",
+        streak=0,
+        create_date=datetime.utcnow() - timedelta(days=6),
+        last_study_date=datetime.utcnow() - timedelta(days=5),
+        next_study_due=datetime.utcnow() - timedelta(days=1)
+    )
+    assert test_card.unit_test()
+    # now delete the object
+    del test_card
+
     print("unit tests complete - pass!")
