@@ -32,7 +32,7 @@ jobs:
       env:
         DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN}}
         SERVER_ID: ${{ secrets.SERVER_ID}}
-        USER: ${{ github.actor }}
+        TEXT: format('push to develop by {0}', ${{ github.actor }})
       run: |
         python deployment/discordbot.py
         
