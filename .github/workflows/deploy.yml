@@ -27,6 +27,7 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
+  deploy:
     - name: Run Deployment Scripts
       run: |
         python deployment/deploy.py
