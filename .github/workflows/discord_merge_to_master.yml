@@ -1,0 +1,36 @@
+# warn discord server when pull request to master branch
+
+name: Send a discord alert when
+
+on:
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  alert:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install discord==2.0.0
+        pip install discord.py==2.0.1
+
+    - name: Send Message Over Discord...
+      env:
+        DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN}}
+        SERVER_ID: ${{ secrets.SERVER_ID}}
+        TEXT: pull request from develop into master performed by ${{ github.actor }}
+      run: |
+        python deployment/discordbot.py
+        
