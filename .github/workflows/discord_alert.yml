@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  alert:
 
     runs-on: ubuntu-latest
 
@@ -28,7 +28,6 @@ jobs:
         pip install discord==2.0.0
         pip install discord.py==2.0.1
 
-  alert:
     - name: Send Message Over Discord...
       env:
         DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN}}

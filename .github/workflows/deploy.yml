@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  build_and_deploy:
 
     runs-on: ubuntu-latest
 
@@ -27,7 +27,6 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-  deploy:
     - name: Run Deployment Scripts
       run: |
         python deployment/deploy.py
