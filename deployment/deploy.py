@@ -32,5 +32,5 @@ parser.add_argument("--to_env", type=str, default="develop")
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    target_env = args['to_env']
+    target_env = args.to_env
     print(f"Nothing has been set up yet!  Attempting to push to {target_env}.")
