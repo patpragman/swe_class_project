@@ -3,6 +3,7 @@ script for deployment of code to production (that's stuff in the master branch)
 """
 import os
 import sys
+import argparse
 """
 this horrifying call allows us to connect the "deployment" module to all the other modules we could
 conceivably need - this is similar to what's in the unit_tests.py script for a reason, we want code
@@ -25,4 +26,11 @@ sys.path.append(
 """
 code to deploy the application goes below here:
 """
-print("Nothing has been set up yet!")
+parser = argparse.ArgumentParser()
+parser.add_argument("--to_env", type=str, default="develop")
+
+
+if __name__ == "__main__":
+    args = parser.parse_args()
+    target_env = args['to_env']
+    print(f"Nothing has been set up yet!  Attempting to push to {target_env}.")

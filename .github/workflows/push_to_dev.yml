@@ -31,4 +31,5 @@ jobs:
       run: |
         python test/integration_tests.py
         python test/unit_tests.py
+        python deployment/deploy.py --to_env develop
         
