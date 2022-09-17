@@ -1,18 +1,14 @@
-# This workflow will install Python dependencies and run test (not worryign about linting for now...)
+# this manually operated workflow deploys code from the develop branch to the testing environment
 
-name: Run Tests on Push to Dev
+name: Deploy to test environment
 
-on:
-  push:
-    branches: [ "develop" ]
-  pull_request:
-    branches: [ "develop" ]
+on: [workflow_dispatch]
 
 permissions:
   contents: read
 
 jobs:
-  run_tests:
+  build_and_deploy_to_test:
 
     runs-on: ubuntu-latest
 
@@ -27,9 +23,7 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    - name: Run Tests
+    - name: Run Deployment Scripts
       run: |
-        python test/integration_tests.py
-        python test/unit_tests.py
-        python deployment/deploy.py --to_env develop
+        python deployment/deploy.py --to_env test
         
