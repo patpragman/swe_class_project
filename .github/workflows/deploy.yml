@@ -29,5 +29,5 @@ jobs:
 
     - name: Run Deployment Scripts
       run: |
-        python deployment/deploy.py --to_env production
+        python deployment/deploy.py --from_branch master --to_env production
         

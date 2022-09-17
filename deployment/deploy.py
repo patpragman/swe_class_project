@@ -28,10 +28,12 @@ code to deploy the application goes below here:
 """
 parser = argparse.ArgumentParser()
 parser.add_argument("--to_env", type=str, default="develop")
+parser.add_argument("--from_branch", type=str, default="develop")
 
 
 if __name__ == "__main__":
     args = parser.parse_args()
+    from_branch = args.from_branch
     target_env = args.to_env
 
 
@@ -41,4 +43,10 @@ if __name__ == "__main__":
     
     """
 
-    print(f"Nothing has been set up yet!  Attempting to push to {target_env}.")
+    print(f"Attempting to deploy code from the {from_branch} branch to the {target_env} environment.")
+
+    """
+    code to deploy to an environment goes below here
+    """
+
+    print('Nothing currently set up.')
