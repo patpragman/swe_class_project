@@ -33,4 +33,12 @@ parser.add_argument("--to_env", type=str, default="develop")
 if __name__ == "__main__":
     args = parser.parse_args()
     target_env = args.to_env
+
+
+    """
+    Presumably in here we could package the api, spool up a docker container and send it to whatever
+    cloud hosting service we want to use, or just bundle and send.
+    
+    """
+
     print(f"Nothing has been set up yet!  Attempting to push to {target_env}.")
