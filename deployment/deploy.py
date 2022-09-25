@@ -4,6 +4,7 @@ script for deployment of code to production (that's stuff in the master branch)
 import os
 import sys
 import argparse
+import boto3
 """
 this horrifying call allows us to connect the "deployment" module to all the other modules we could
 conceivably need - this is similar to what's in the unit_tests.py script for a reason, we want code
@@ -31,6 +32,8 @@ parser.add_argument("--to_env", type=str, default="develop")
 parser.add_argument("--from_branch", type=str, default="develop")
 
 
+
+
 if __name__ == "__main__":
     args = parser.parse_args()
     from_branch = args.from_branch
@@ -49,4 +52,15 @@ if __name__ == "__main__":
     code to deploy to an environment goes below here
     """
 
-    print('Nothing currently set up.')
+    # if you're deploying to the dev facing environment
+    if target_env == "develop":
+        client = boto3.client("lambda")
+        for lambda_function_endpoint in ["post", "get"]:
+            # iterate through post and get and update the lambda functions that handle posts and get requests on aws
+            with open(f"deployment_package_{lambda_function_endpoint}.zip", "rb") as zipfile:
+                client.update_function_code(
+                    FunctionName=f'dev-{lambda_function_endpoint}',
+                    ZipFile=zipfile.read()
+                )
+    else:
+        print('deployment to test and prod not set up yet')
