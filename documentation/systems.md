@@ -39,6 +39,7 @@
         
         G --> H
         J -- Pass --> K
+        J -- Fail --> A
         subgraph Deploy to Production
             K[Initiate Pull Request from develop branch to master]
             L{Final Human Approval}
