@@ -13,6 +13,11 @@ jobs:
     steps:
       - name: checkout source code
         uses: actions/checkout@v1
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::545455113134:user/github
+          aws-region: us-west-2
       - name: default deploy
         uses: appleboy/lambda-action@master
         with:
