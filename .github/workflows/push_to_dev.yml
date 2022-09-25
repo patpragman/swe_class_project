@@ -47,5 +47,6 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
         source deployment/package_post.sh
+        source deployment/package_get.sh
         python deployment/deploy.py --from_branch develop --to_env develop
         
