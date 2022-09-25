@@ -12,7 +12,7 @@ def lambda_handler(event, context):
 
     # define more operations in here - echo is the "hello world" of this sort of thing...
     operations = {
-        'echo': lambda x: x,
+        'echo': lambda x: 2*x,
     }
 
     if operation in operations:

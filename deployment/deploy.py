@@ -32,7 +32,7 @@ parser.add_argument("--to_env", type=str, default="develop")
 parser.add_argument("--from_branch", type=str, default="develop")
 
 
-client = boto3.client("lambda")
+
 
 if __name__ == "__main__":
     args = parser.parse_args()
@@ -52,4 +52,10 @@ if __name__ == "__main__":
     code to deploy to an environment goes below here
     """
 
-    print('Nothing currently set up.')
+    client = boto3.client("lambda")
+    with open("deployment_package.zip", "rb") as zipfile:
+        client.update_function_code(
+            FunctionName='dev-post',
+            ZipFile=zipfile.read()
+        )
+    #             Handler='lambda_function.lambda_handler',

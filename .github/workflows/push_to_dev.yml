@@ -33,6 +33,12 @@ jobs:
         python test/unit_tests.py
 
     - name: Deploy to Dev
+      env:
+        SERVER_ID: ${{ secrets.SERVER_ID}}
+        TEXT: push to develop by ${{ github.actor }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_REGION: ${{ secrets.AWS_REGION }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
         source deployment/package_post.sh
         python deployment/deploy.py --from_branch develop --to_env develop
