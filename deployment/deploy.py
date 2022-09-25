@@ -4,6 +4,7 @@ script for deployment of code to production (that's stuff in the master branch)
 import os
 import sys
 import argparse
+import boto3
 """
 this horrifying call allows us to connect the "deployment" module to all the other modules we could
 conceivably need - this is similar to what's in the unit_tests.py script for a reason, we want code
@@ -30,6 +31,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--to_env", type=str, default="develop")
 parser.add_argument("--from_branch", type=str, default="develop")
 
+
+client = boto3.client()
 
 if __name__ == "__main__":
     args = parser.parse_args()
