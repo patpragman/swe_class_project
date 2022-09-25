@@ -1,9 +1,9 @@
-# warn discord server when pull request to master branch
+# warn discord server when push performed to master
 
 name: Send a discord alert when
 
 on:
-  pull_request:
+  push:
     branches: [ "master" ]
 
 permissions:
@@ -30,7 +30,7 @@ jobs:
       env:
         DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN}}
         SERVER_ID: ${{ secrets.SERVER_ID}}
-        TEXT: pull request from develop into master performed by ${{ github.actor }}
+        TEXT: merge from develop into master performed by ${{ github.actor }}
       run: |
         python deployment/discordbot.py
         
