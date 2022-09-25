@@ -11,8 +11,10 @@ jobs:
     name: deploy lambda from source to dev
     runs-on: ubuntu-latest
     steps:
-      - name: checkout source code
-        uses: actions/checkout@v1
+      - name: zip
+        uses: montudor/action-zip@v0.1.0
+        with:
+          args: zip -qq -r ./dev-post.zip /lambda_functions/def-post
       - name: default deploy
         uses: appleboy/lambda-action@master
         with:
