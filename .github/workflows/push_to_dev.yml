@@ -33,6 +33,7 @@ jobs:
         python test/unit_tests.py
 
     - name: Deploy to Dev
+      run: |
         source deployment/package_post.sh
         python deployment/deploy.py --from_branch develop --to_env develop
         
