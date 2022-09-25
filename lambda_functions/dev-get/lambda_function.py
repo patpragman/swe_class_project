@@ -6,5 +6,5 @@ def lambda_handler(event, context):
     return {
         'statusCode': 200,
         "headers": {'Content-Type': 'text/html'},
-        'body': json.dumps('<h3>Here we go! Hello World!!! WOOO HOO!</h3>')
+        'body': json.dumps('<h3>Here we go! Hello World!!! WOOO HOO! Welcome!</h3>')
     }
