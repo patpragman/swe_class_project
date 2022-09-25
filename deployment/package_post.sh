@@ -15,9 +15,9 @@ deactivate
 
 # zip up the packages you'll need for the lambda
 cd venv/lib/python3.10/site-packages
-zip -r ../../../../../deployment_package.zip .
+zip -r ../../../../../deployment_package_post.zip .
 cd ../../../../
-zip -g ../deployment_package.zip lambda_function.py
+zip -g ../deployment_package_post.zip lambda_function.py
 cd ..
 rm -rf deployment_package
 

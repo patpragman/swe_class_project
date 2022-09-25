@@ -52,10 +52,15 @@ if __name__ == "__main__":
     code to deploy to an environment goes below here
     """
 
-    client = boto3.client("lambda")
-    with open("deployment_package.zip", "rb") as zipfile:
-        client.update_function_code(
-            FunctionName='dev-post',
-            ZipFile=zipfile.read()
-        )
-    #             Handler='lambda_function.lambda_handler',
+    # if you're deploying to the dev facing environment
+    if target_env == "develop":
+        client = boto3.client("lambda")
+        for lambda_function_endpoint in ["post", "get"]:
+            # iterate through post and get and update the lambda functions that handle posts and get requests on aws
+            with open(f"deployment_package_{lambda_function_endpoint}.zip", "rb") as zipfile:
+                client.update_function_code(
+                    FunctionName=f'dev-{lambda_function_endpoint}',
+                    ZipFile=zipfile.read()
+                )
+    else:
+        print('deployment to test and prod not set up yet')
