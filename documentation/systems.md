@@ -1,3 +1,4 @@
+Basic Layout of Deployment Pipeline:
 ```mermaid
     graph TB;
         
@@ -60,3 +61,5 @@
         
 
 ```
+
+Basic Layout of Architecture (WIP):
