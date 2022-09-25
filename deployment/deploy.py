@@ -32,7 +32,7 @@ parser.add_argument("--to_env", type=str, default="develop")
 parser.add_argument("--from_branch", type=str, default="develop")
 
 
-client = boto3.client()
+client = boto3.client("lambda")
 
 if __name__ == "__main__":
     args = parser.parse_args()
