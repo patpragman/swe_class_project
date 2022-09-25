@@ -62,4 +62,21 @@ Basic Layout of Deployment Pipeline:
 
 ```
 
-Basic Layout of Architecture (WIP):
+# How to approve a Pull Request
+Navigate to the "Pull Request" tab in github
+![img.png](img.png)
+
+change this drop down to the branch you want to pull into master, then click "create pull request"
+![img_1.png](img_1.png)
+
+write about how you're changing things:
+![img_2.png](img_2.png)
+
+let all the tests run
+![img_3.png](img_3.png)
+
+confirm the PR
+![img_4.png](img_4.png)
+
+
+# Basic Layout of Architecture (WIP):
