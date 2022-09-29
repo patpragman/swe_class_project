@@ -112,7 +112,7 @@ of the tree.  That is the part of the tree that customers interact with.
 If you make a change to the "master branch" that's too aggressive you might break the tree!  So instead you make a "branch"
 off of the tree where you can try out your feature:
 
-![](../branch%20with%20feature.png)
+![](branch%20with%20feature.png)
 
 if that works you "pull" the "branch" back into the main "branch" of the tree.  I get that it's a silly metaphor, but that's all
 that git is doing.
