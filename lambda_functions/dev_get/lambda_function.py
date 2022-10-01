@@ -16,10 +16,8 @@ def lambda_handler(event, context):
     obj = s3_client.Object(bucket_name, "/main.html")
     content = obj.get()['Body'].read().decode('utf-8')
 
-    # get the path of the file you want
-    path = event['rawPath']
-    if path == "":
-        path = "/main.html"
+    # need to figure out how to use the AWS event coming from the api gateway to fetch specific pages...
+    path = "/main.html"
 
     try:
         # so honestly, this just fetches one page... that's the only thing it does naturally more to come
