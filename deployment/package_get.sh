@@ -5,7 +5,7 @@
 mkdir "deployment_package"
 
 # copy all the lambda functions into the deployment package
-cp lambda_functions/dev-get/* "deployment_package"
+cp -r lambda_functions/dev_get/* "deployment_package"
 # build a venv of all the tools we need
 cd deployment_package
 python -m venv venv
