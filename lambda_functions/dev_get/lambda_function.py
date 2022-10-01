@@ -11,6 +11,10 @@ def lambda_handler(event, context):
     bucket_name = f"swe.class.project.{ENV}"
     selected_bucket = s3_client.Bucket(bucket_name)
 
+    # doing this to troubleshoot log file stuff...
+    for my_bucket_object in selected_bucket.objects.all():
+        print(my_bucket_object)
+
     # so honestly, this just fetches one page... that's the only thing it does naturally more to come
     obj = s3_client.Object(bucket_name, "/main.html")
     content = obj.get()['Body'].read().decode('utf-8')
