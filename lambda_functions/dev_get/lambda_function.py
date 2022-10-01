@@ -16,8 +16,26 @@ def lambda_handler(event, context):
     obj = s3_client.Object(bucket_name, "/main.html")
     content = obj.get()['Body'].read().decode('utf-8')
 
-    return {
-        'statusCode': 200,
-        "headers": {'Content-Type': 'text/html'},
-        'body': content
-    }
+    # get the path of the file you want
+    path = event['path']
+    if path == "":
+        path = "/main.html"
+
+    try:
+        # so honestly, this just fetches one page... that's the only thing it does naturally more to come
+        obj = s3_client.Object(bucket_name, f"{path}")
+        content = obj.get()['Body'].read().decode('utf-8')
+        return {
+            'statusCode': 200,
+            "headers": {'Content-Type': 'text/html'},
+            'body': content
+        }
+    except Exception:
+        # absurdly (and overly broad) exception class...
+        obj = s3_client.Object(bucket_name, f"/fnf.html")
+        content = obj.get()['Body'].read().decode('utf-8')
+        return {
+            'statusCode': 404,
+            "headers": {'Content-Type': 'text/html'},
+            'body': content
+        }
