@@ -5,6 +5,7 @@ import os
 import sys
 import argparse
 import boto3
+from upload import update_api, update_web_content
 """
 this horrifying call allows us to connect the "deployment" module to all the other modules we could
 conceivably need - this is similar to what's in the unit_tests.py script for a reason, we want code
@@ -39,28 +40,15 @@ if __name__ == "__main__":
     from_branch = args.from_branch
     target_env = args.to_env
 
-
-    """
-    Presumably in here we could package the api, spool up a docker container and send it to whatever
-    cloud hosting service we want to use, or just bundle and send.
-    
-    """
-
     print(f"Attempting to deploy code from the {from_branch} branch to the {target_env} environment.")
 
     """
-    code to deploy to an environment goes below here
+    this is where we package the code to deploy to the various AWS services we're using
     """
 
-    # if you're deploying to the dev facing environment
     if target_env == "develop":
-        client = boto3.client("lambda")
-        for lambda_function_endpoint in ["post", "get"]:
-            # iterate through post and get and update the lambda functions that handle posts and get requests on aws
-            with open(f"deployment_package_{lambda_function_endpoint}.zip", "rb") as zipfile:
-                client.update_function_code(
-                    FunctionName=f'dev-{lambda_function_endpoint}',
-                    ZipFile=zipfile.read()
-                )
+        # if you're deploying to the dev facing environment
+        update_api(env="dev")
+        update_web_content(env="dev")
     else:
         print('deployment to test and prod not set up yet')
