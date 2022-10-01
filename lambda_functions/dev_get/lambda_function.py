@@ -17,7 +17,7 @@ def lambda_handler(event, context):
     content = obj.get()['Body'].read().decode('utf-8')
 
     # get the path of the file you want
-    path = event['path']
+    path = event['rawPath']
     if path == "":
         path = "/main.html"
 
