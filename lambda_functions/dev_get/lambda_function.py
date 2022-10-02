@@ -1,3 +1,7 @@
+# notes:
+# https://stackoverflow.com/questions/42194162/aws-api-gateway-return-binary-file-from-base64-browser-error
+
+
 import json
 from collections import defaultdict
 import boto3
@@ -10,14 +14,15 @@ SUPPORTED_IMAGE_FILETYPES = ["png", "jpeg", "jpg", "gif"]
 header_mapping = {"html": {'Content-Type': 'text/html'}}
 for image_type in SUPPORTED_IMAGE_FILETYPES:
     header_mapping[image_type] = {'Content-Type': f'image/{"jpeg" if image_type == "jpg" else image_type}',
-                                  'Content-Encoding': "base64"}
+                                  'isBase64Encoded': True}
 
 
 def fetch_object_from_s3(file_type, obj):
     """convert the object from s3 to the appropriate format to send in the json response"""
 
     if file_type in SUPPORTED_IMAGE_FILETYPES:
-        content = base64.b64encode(obj.get()['Body'].read()).decode("utf-8")
+        image = obj.get()['Body'].read()
+        content = base64.b64encode(image)
     else:
         content = obj.get()['Body'].read().decode('utf-8')
 
