@@ -7,7 +7,7 @@ ENV = "dev"
 SUPPORTED_IMAGE_FILETYPES = ["png", "jpeg", "jpg", "gif"]
 
 # build a dictionary of HTTP headers
-header_mapping = defaultdict({'Content-Type': 'text/html'})
+header_mapping = {"html": {'Content-Type': 'text/html'}}
 for image_type in SUPPORTED_IMAGE_FILETYPES:
     header_mapping[image_type] = {'Content-Type': f'image/{image_type}'}
 
