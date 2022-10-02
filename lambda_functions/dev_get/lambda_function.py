@@ -9,8 +9,7 @@ SUPPORTED_IMAGE_FILETYPES = ["png", "jpeg", "jpg", "gif"]
 # build a dictionary of HTTP headers
 header_mapping = {"html": {'Content-Type': 'text/html'}}
 for image_type in SUPPORTED_IMAGE_FILETYPES:
-    image_type = "jpeg" if image_type == "jpg" else image_type
-    header_mapping[image_type] = {'Content-Type': f'image/{image_type}'}
+    header_mapping[image_type] = {'Content-Type': f'image/{"jpeg" if image_type == "jpg" else image_type}'}
 
 
 def fetch_object_from_s3(file_type, obj):
