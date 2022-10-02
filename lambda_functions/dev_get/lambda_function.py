@@ -26,7 +26,7 @@ def lambda_handler(event, context):
         return {
             'statusCode': 200,
             "headers": {'Content-Type': 'text/html'},
-            'body': content
+            'body': str(event)
         }
     except Exception:
         # absurdly (and overly broad) exception class...
