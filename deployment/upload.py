@@ -5,8 +5,24 @@ This code is a series of functions to push code and content to AWS
 
 import boto3
 import os
+import pathlib
 
-def update_api(lambda_function_endpoints=["post", "get"], env="dev"):
+
+def file_type_mapping(suffix) -> str:
+    # we need this function to map the file suffix to the appropriate HTTP response header in s3
+
+    suffix = suffix.replace(".", "")
+    if suffix == "html":
+        return 'text/html'
+    elif suffix == "jpg" or suffix == "jpeg":
+        return "image/jpeg"
+    elif suffix == "png":
+        return "image/png"
+    else:
+        return "text/plain"
+
+
+def update_api(lambda_function_endpoints=["post",], env="dev"):
     """
     This code updates the api by spooling up a lambda client, then for each end point selected
     uploading the associated zip file.
@@ -33,6 +49,7 @@ def update_web_content(folderpath="web_content", env="dev"):
     """
     This code takes all the content of the web content folder, and uploads it to the applicable S3 bucket
     path and all
+    :param folderpath: this is the path from the root directory in the repo where the static html is stored.
     :param path: the name of the folder or path to the folder containing the web content.
     :param env: the env referenced in the bucket, such as swe.class.project.dev or something similar
     :return: None - it does it's work then quietly dies.
@@ -44,10 +61,14 @@ def update_web_content(folderpath="web_content", env="dev"):
 
     # this code modified from stack exchange, but yeah, walk through directories and create folders as required
     for path, subdirs, files in os.walk(folderpath):
-        path = path.replace("\\", "/")
-        directory_name = path.replace(path, "")
+        # path = path.replace("\\", "/")
+        # directory_name = path.replace(path, "")
         for file in files:
-            print(file)
-            selected_bucket.upload_file(os.path.join(path, file), directory_name + '/' + file)
+            file_location = os.path.join(path, file)
+            suffix = pathlib.Path(file_location).suffix
+            selected_bucket.upload_file(file_location, file, ExtraArgs={'ContentType': file_type_mapping(suffix)})
 
+
+if __name__ == "__main__":
+    update_web_content()
 
