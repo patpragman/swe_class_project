@@ -22,7 +22,7 @@ def fetch_object_from_s3(file_type, obj):
 
     if file_type in SUPPORTED_IMAGE_FILETYPES:
         image = obj.get()['Body'].read()
-        content = base64.b64encode(image)
+        content = base64.b64encode(image).decode("utf-8")
     else:
         content = obj.get()['Body'].read().decode('utf-8')
 
