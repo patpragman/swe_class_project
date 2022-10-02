@@ -6,6 +6,10 @@ import os
 DISCORD_TOKEN = os.environ['DISCORD_TOKEN']
 SERVER_ID = os.environ['SERVER_ID']
 TEXT = os.environ['TEXT']
+if "IMAGE" in os.environ:
+    IMAGE = os.environ['IMAGE']
+else:
+    IMAGE = None
 
 # configure the discord library
 intents = discord.Intents.default()
@@ -21,7 +25,8 @@ async def on_ready():
     channel = channels['general']
 
     await channel.send(TEXT)
-
+    if IMAGE:
+        await channel.send(file=discord.File(IMAGE))
     # kill the discord bot, exit the code, and don't raise an error - hacky I know, but it works
     os._exit(0)
 
