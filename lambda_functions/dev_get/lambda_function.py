@@ -39,8 +39,9 @@ def lambda_handler(event, context):
     content = obj.get()['Body'].read().decode('utf-8')
 
     # need to figure out how to use the AWS event coming from the api gateway to fetch specific pages...
-    api_return_datatype = event['type']
-    api_file_path = event['path']
+    get_params = event["queryStringParameters"]
+    api_return_datatype = get_params['type']
+    api_file_path = get_params['path']
     header = header_mapping[api_return_datatype]
 
     try:
