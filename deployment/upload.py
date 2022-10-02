@@ -22,9 +22,7 @@ def file_type_mapping(suffix) -> str:
         return "text/plain"
 
 
-
-
-def update_api(lambda_function_endpoints=["post", "get"], env="dev"):
+def update_api(lambda_function_endpoints=["post",], env="dev"):
     """
     This code updates the api by spooling up a lambda client, then for each end point selected
     uploading the associated zip file.
@@ -51,6 +49,7 @@ def update_web_content(folderpath="web_content", env="dev"):
     """
     This code takes all the content of the web content folder, and uploads it to the applicable S3 bucket
     path and all
+    :param folderpath: this is the path from the root directory in the repo where the static html is stored.
     :param path: the name of the folder or path to the folder containing the web content.
     :param env: the env referenced in the bucket, such as swe.class.project.dev or something similar
     :return: None - it does it's work then quietly dies.
@@ -63,11 +62,12 @@ def update_web_content(folderpath="web_content", env="dev"):
     # this code modified from stack exchange, but yeah, walk through directories and create folders as required
     for path, subdirs, files in os.walk(folderpath):
         # path = path.replace("\\", "/")
-        directory_name = path.replace(path, "")
+        # directory_name = path.replace(path, "")
         for file in files:
             file_location = os.path.join(path, file)
             suffix = pathlib.Path(file_location).suffix
             selected_bucket.upload_file(file_location, file, ExtraArgs={'ContentType': file_type_mapping(suffix)})
+
 
 if __name__ == "__main__":
     update_web_content()

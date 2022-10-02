@@ -1,9 +1,21 @@
+"""
+This is deprecated code - after much deliberation, we no longer have to even think about this.
+
+This code was going to run a get request to pull objects out of S3 to run the static portion of our web application.
+After "RTFM" I discovered that this wasn't necessary.
+
+We can host the bucket as a static webpage.  Now, the web content deploys as a simple boto3 call uploading the code
+to S3.
+
+This is much easier than the alternative - that is reinventing the wheel.
+"""
+
+
+
 # notes:
 # https://stackoverflow.com/questions/42194162/aws-api-gateway-return-binary-file-from-base64-browser-error
 
 
-import json
-from collections import defaultdict
 import boto3
 import base64
 
