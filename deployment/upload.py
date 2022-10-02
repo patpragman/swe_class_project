@@ -5,6 +5,24 @@ This code is a series of functions to push code and content to AWS
 
 import boto3
 import os
+import pathlib
+
+
+def file_type_mapping(suffix) -> str:
+    # we need this function to map the file suffix to the appropriate HTTP response header in s3
+
+    suffix = suffix.replace(".", "")
+    if suffix == "html":
+        return 'text/html'
+    elif suffix == "jpg" or suffix == "jpeg":
+        return "image/jpeg"
+    elif suffix == "png":
+        return "image/png"
+    else:
+        return "text/plain"
+
+
+
 
 def update_api(lambda_function_endpoints=["post", "get"], env="dev"):
     """
@@ -44,10 +62,13 @@ def update_web_content(folderpath="web_content", env="dev"):
 
     # this code modified from stack exchange, but yeah, walk through directories and create folders as required
     for path, subdirs, files in os.walk(folderpath):
-        path = path.replace("\\", "/")
+        # path = path.replace("\\", "/")
         directory_name = path.replace(path, "")
         for file in files:
-            print(file)
-            selected_bucket.upload_file(os.path.join(path, file), directory_name + '/' + file)
+            file_location = os.path.join(path, file)
+            suffix = pathlib.Path(file_location).suffix
+            selected_bucket.upload_file(file_location, file, ExtraArgs={'ContentType': file_type_mapping(suffix)})
 
+if __name__ == "__main__":
+    update_web_content()
 
