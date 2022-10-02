@@ -10,7 +10,7 @@ SUPPORTED_IMAGE_FILETYPES = ["png", "jpeg", "jpg", "gif"]
 header_mapping = {"html": {'Content-Type': 'text/html'}}
 for image_type in SUPPORTED_IMAGE_FILETYPES:
     header_mapping[image_type] = {'Content-Type': f'image/{"jpeg" if image_type == "jpg" else image_type}',
-                                  'isBase64Encoded': True}
+                                  'Content-Encoding': "base64"}
 
 
 def fetch_object_from_s3(file_type, obj):
