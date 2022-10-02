@@ -9,7 +9,8 @@ SUPPORTED_IMAGE_FILETYPES = ["png", "jpeg", "jpg", "gif"]
 # build a dictionary of HTTP headers
 header_mapping = {"html": {'Content-Type': 'text/html'}}
 for image_type in SUPPORTED_IMAGE_FILETYPES:
-    header_mapping[image_type] = {'Content-Type': f'image/{"jpeg" if image_type == "jpg" else image_type}'}
+    header_mapping[image_type] = {'Content-Type': f'image/{"jpeg" if image_type == "jpg" else image_type}',
+                                  'isBase64Encoded': True}
 
 
 def fetch_object_from_s3(file_type, obj):
@@ -35,8 +36,6 @@ def lambda_handler(event, context):
 
 
     # so honestly, this just fetches one page... that's the only thing it does naturally more to come
-    obj = s3_client.Object(bucket_name, "/main.html")
-    content = obj.get()['Body'].read().decode('utf-8')
 
     # need to figure out how to use the AWS event coming from the api gateway to fetch specific pages...
     get_params = event["queryStringParameters"]
