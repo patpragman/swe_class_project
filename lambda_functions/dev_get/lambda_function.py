@@ -51,12 +51,12 @@ def lambda_handler(event, context):
             "headers": header,
             'body': fetch_object_from_s3(api_return_datatype, obj)
         }
-    except Exception:
+    except Exception as err:
         # absurdly (and overly broad) exception class...
         obj = s3_client.Object(bucket_name, f"/fnf.html")
         content = obj.get()['Body'].read().decode('utf-8')
         return {
             'statusCode': 404,
             "headers": {'Content-Type': 'text/html'},
-            'body': content
+            'body': str(err)
         }
