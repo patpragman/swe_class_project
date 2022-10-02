@@ -16,7 +16,7 @@ def fetch_object_from_s3(file_type, obj):
     """convert the object from s3 to the appropriate format to send in the json response"""
 
     if file_type in SUPPORTED_IMAGE_FILETYPES:
-        content = obj.get()['Body'].read().decode('utf-8')
+        content = base64.b64encode(obj.get()['Body'])
     else:
         content = obj.get()['Body'].read().decode('utf-8')
 
