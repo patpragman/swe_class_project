@@ -39,5 +39,6 @@ jobs:
         TEXT: daily repo statistics
         IMAGE: stats.png
       run: |
+        python repo_stats.py
         python deployment/discordbot.py
         
