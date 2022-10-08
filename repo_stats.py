@@ -5,7 +5,7 @@ import plotly.express as px
 
 
 def git_shortlog_to_df(flags="-ns") -> pd.DataFrame:
-    system(f"git shortlog HEAD {flags} > temp.txt")
+    system(f"git log | git shortlog HEAD {flags} > temp.txt")
     with open("temp.txt", "r") as output:
         lines = output.readlines()
     system('rm -rf temp.txt')
