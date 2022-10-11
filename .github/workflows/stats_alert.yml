@@ -29,6 +29,8 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Generate Statistics
+      with:
+        fetch-depth: 0
       run: |
         python repo_stats.py
 
@@ -39,7 +41,5 @@ jobs:
         TEXT: daily repo statistics
         IMAGE: stats.png
       run: |
-        fetch-depth: 0
-        python repo_stats.py
         python deployment/discordbot.py
         
