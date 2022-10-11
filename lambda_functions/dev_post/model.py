@@ -5,9 +5,24 @@ class Model:
     pass
 
 class User:
+    """
+    username
+    password
+    homedirectory that points at the card objects
+    """
     pass
 
 class FlashCardFolder:
+    """
+
+    Class that holds the path to a flashcard
+    """
+    pass
+
+class Deck:
+    """
+    class that holds a study deck
+    """
     pass
 
 @dataclass
