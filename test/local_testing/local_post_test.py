@@ -7,7 +7,7 @@ print(url)
 test_code = {"key1": "value1",
              "key2": "value2",
              "key3": "value3",
-             "operation": "sayhello",
+             "operation": "say_hello",
              "payload": "patpatpatpatpat!"
              }
 
