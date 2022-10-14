@@ -1,6 +1,9 @@
 import json
 
 
+def sayhello(name):
+    return f"hello {name}"
+
 def lambda_handler(event, context):
     '''Provide an event that contains the following keys:
 
@@ -13,6 +16,7 @@ def lambda_handler(event, context):
     # define more operations in here - echo is the "hello world" of this sort of thing...
     operations = {
         'echo': lambda x: 2*x,
+        'say_hello': lambda x: sayhello(x)
     }
 
     if operation in operations:
