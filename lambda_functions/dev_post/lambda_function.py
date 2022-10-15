@@ -2,15 +2,21 @@ import json
 
 
 
-def create_flashcard(payload: dict) -> bool:
+def create_flashcard(payload: dict) -> dict:
     """
     This function creates a new flashcard object by parsing a dictionary and saving it to s3
 
     :param payload: a dictionary containing the json from the client side
-    :return: true if the operation was successful, false otherwise
+    :return: a dictionary with the following keys:
+            {"success": True or false depending on if it worked or not,
+            "return_payload": the data the server is going to send back
+            }
     """
 
-    return False # just returning false until we actually write the code to do this
+    return {"success": False,
+            "return_payload": {}  # empty dictionary for now
+            }  # just returning false until we actually write the code to do this
+
 
 def lambda_handler(event, context):
     '''Provide an event that contains the following keys:
@@ -23,8 +29,8 @@ def lambda_handler(event, context):
 
     # define more operations in here - echo is the "hello world" of this sort of thing...
     operations = {
-        'echo': lambda x: x,
-        'create_flashcard': lambda payload: create_flashcard(payload)
+        'echo': lambda x: x,  # echos back literally all data you send
+        'create_flashcard': lambda payload: create_flashcard(payload)  # sends back a dictionary
     }
 
     if operation in operations:
