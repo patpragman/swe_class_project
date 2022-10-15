@@ -14,7 +14,9 @@ def create_flashcard(payload: dict) -> dict:
     """
 
     return {"success": False,
-            "return_payload": {}  # empty dictionary for now
+            "return_payload": {
+                "message": "unable to create flashcard, function not implemented"
+                }
             }  # just returning false until we actually write the code to do this
 
 
