@@ -27,7 +27,11 @@ def create_flashcard(payload: dict) -> dict:
     """
 
     s3_client = boto3.resource("s3", region_name="us-west-2")
-    bucket_name = f"swe.class.project.storage"
+    """"
+    the client is the tool that we use to talk to s3 - the region name is where our data lives presently...
+    it's in portland oregon
+    """
+    bucket_name = f"swe.class.project.storage"  # this is the name of the folder where all our data lives
 
     # first try and load the master flashcard list
     try:
@@ -35,7 +39,6 @@ def create_flashcard(payload: dict) -> dict:
         card_list = json.loads(response['Body'].read())
 
     except botocore.exceptions.ClientError as e:
-        print(e)
         if e.response['Error']['Code'] == "404":
             # the object doesn't exist, we'll make an empty card list
             card_list = []
@@ -53,7 +56,7 @@ def create_flashcard(payload: dict) -> dict:
 
     # now try to save the card
     try:
-        # put an object
+        # you can drop the card_list into the s3 bucket with the following function
         s3_client.Bucket(bucket_name).put_object(Body=json.dumps(card_list), Key='card_list.json', ContentType='json')
 
         return {"success": True,
@@ -63,6 +66,7 @@ def create_flashcard(payload: dict) -> dict:
                 }
 
     except botocore.exceptions.ClientError:
+        # if we got a client error, send that back with the appropriate return payload, etc.
         return {"success": False,
                 "return_payload": {
                     "message": "we received your card, but there was an error and it did not save."
