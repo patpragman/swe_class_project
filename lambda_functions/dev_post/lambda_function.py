@@ -27,12 +27,14 @@ def create_flashcard(payload: dict) -> dict:
     try:
         card_list = s3_client.Object(bucket_name, "card_list.json").load()
     except botocore.exceptions.ClientError as e:
+        print(e)
         if e.response['Error']['Code'] == "404":
             # the object doesn't exist, we'll make an empty card list
             card_list = []
         else:
             # Something else unpredictable has happened...
-            raise Exception("Error loading card_list")
+            print(e)
+            raise Exception(str(e))
     else:
         # The card_list does exist, so let's go ahead and append a card to it.
         pass
