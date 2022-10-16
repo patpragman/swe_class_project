@@ -71,6 +71,7 @@ from lambda_functions.dev_post.model import FlashCard
 from datetime import timedelta, datetime
 
 test_card = FlashCard(
+    owner="test user",
     folder="test / not import",
     front_text="test_card_front",
     back_text="test_card_back",
@@ -83,7 +84,7 @@ test_card = FlashCard(
 obj = test_card.dict()
 save_card_test_json = {"operation": "create_flashcard",
                        "payload":
-                           {"username": "Test",
+                           {"username": "test user",
                             "password": "Test",
                             "object": json.dumps(obj)
                             }
