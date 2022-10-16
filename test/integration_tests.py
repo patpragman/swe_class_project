@@ -71,6 +71,7 @@ from lambda_functions.dev_post.model import FlashCard
 from datetime import timedelta, datetime
 
 test_card = FlashCard(
+    owner="test user",
     folder="test / not import",
     front_text="test_card_front",
     back_text="test_card_back",
