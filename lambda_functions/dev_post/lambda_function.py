@@ -40,7 +40,7 @@ def create_flashcard(payload: dict) -> dict:
         pass
 
     # get an object from the payload, then append it to the card list
-    card = payload['object']
+    card = json.loads(payload['object'])
     card_list.append(card)
 
     # now try to save the card
