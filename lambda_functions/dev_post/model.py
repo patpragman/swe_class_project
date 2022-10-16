@@ -93,7 +93,7 @@ class FlashCard:
             self.last_study_date = initial_last_study_date
             self.next_study_due = initial_next_study_date
             # cool it worked
-            assert isinstance(self.dict())
+            assert isinstance(self.dict(), dict)
             return True
         except AssertionError:
             return False
