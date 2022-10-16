@@ -25,7 +25,9 @@ def create_flashcard(payload: dict) -> dict:
 
     # first try and load the master flashcard list
     try:
-        card_list = s3_client.Object(bucket_name, "card_list.json").load()
+        response = s3_client.Object(bucket_name, "card_list.json").get()
+        card_list = json.loads(response['Body'].read())
+
     except botocore.exceptions.ClientError as e:
         print(e)
         if e.response['Error']['Code'] == "404":
