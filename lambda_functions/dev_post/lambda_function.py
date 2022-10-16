@@ -46,7 +46,7 @@ def create_flashcard(payload: dict) -> dict:
     # now try to save the card
     try:
         # put an object
-        s3_client.put_object(Body=json.dumps(card_list), Bucket=bucket_name, Key='card_list.json', ContentType='json')
+        s3_client.Bucket(bucket_name).put_object(Body=json.dumps(card_list), Key='card_list.json', ContentType='json')
 
         return {"success": True,
                 "return_payload": {
