@@ -43,6 +43,7 @@ class FlashCard:
         streak - an integer that helps set the next_study_due
     """
 
+    owner: str
     folder: str
     front_text: str
     back_text: str
@@ -105,6 +106,7 @@ def run_flashcard_unit_tests() -> None:
     :return: None, it either works or you get an assertion error.
     """
     test_card = FlashCard(
+        owner="test user",
         folder="test / not import",
         front_text="test_card_front",
         back_text="test_card_back",
