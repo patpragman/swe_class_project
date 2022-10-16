@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from datetime import datetime, timedelta
 
 class Model:
@@ -74,6 +74,9 @@ class FlashCard:
         self.last_study_date = datetime.utcnow()
         self.next_study_due = self.last_study_date + timedelta(days=self.streak)
 
+    def dict(self):
+        return {k: str(v) for k, v in asdict(self).items()}
+
     def unit_test(self) -> bool:
         # test that this works, also don't mutate the actual object
 
@@ -90,11 +93,12 @@ class FlashCard:
             self.last_study_date = initial_last_study_date
             self.next_study_due = initial_next_study_date
             # cool it worked
+            assert isinstance(self.dict())
             return True
         except AssertionError:
             return False
 
-def run_flashcard_tests() -> None:
+def run_flashcard_unit_tests() -> None:
     """
     Creates a flashcard object and runs the unit test method on it
 
@@ -112,3 +116,4 @@ def run_flashcard_tests() -> None:
     assert test_card.unit_test()
     # now delete the object
     del test_card
+

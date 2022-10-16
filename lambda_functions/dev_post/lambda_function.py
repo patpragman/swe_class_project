@@ -1,5 +1,12 @@
 import json
+import boto3
+import botocore
 
+def authenticate(payload: dict) -> bool:
+    """
+    authenticate the payload and return true or false if the username and password match
+    """
+    return True # for now just return true
 
 
 def create_flashcard(payload: dict) -> dict:
@@ -13,11 +20,44 @@ def create_flashcard(payload: dict) -> dict:
             }
     """
 
-    return {"success": False,
-            "return_payload": {
-                "message": "unable to create flashcard, function not implemented"
+    s3_client = boto3.resource("s3", region_name="us-west-2")
+    bucket_name = f"swe.class.project.storage"
+
+    # first try and load the master flashcard list
+    try:
+        card_list = s3_client.Object(bucket_name, "card_list.json").load()
+    except botocore.exceptions.ClientError as e:
+        if e.response['Error']['Code'] == "404":
+            # the object doesn't exist, we'll make an empty card list
+            card_list = []
+        else:
+            # Something else unpredictable has happened...
+            raise Exception("Error loading card_list")
+    else:
+        # The card_list does exist, so let's go ahead and append a card to it.
+        pass
+
+    # get an object from the payload, then append it to the card list
+    card = payload['object']
+    card_list.append(card)
+
+    # now try to save the card
+    try:
+        # put an object
+        s3_client.put_object(Body=json.dumps(card_list), Bucket=bucket_name, Key='card_list.json', ContentType='json')
+
+        return {"success": True,
+                "return_payload": {
+                    "message": "card saved!"
+                    }
                 }
-            }  # just returning false until we actually write the code to do this
+
+    except botocore.exceptions.ClientError:
+        return {"success": False,
+                "return_payload": {
+                    "message": "we received your card, but there was an error and it did not save."
+                    }
+                }
 
 
 def lambda_handler(event, context):
@@ -52,17 +92,22 @@ def lambda_handler(event, context):
         event = json.loads(event['body'])
         operation = event['operation']
 
-        # check if this operation is supported, then run the operation
-        if operation in operations:
-            # a simple "200" request, but suffice it to say the operation worked.
-            response['statusCode'] = 200
+        # first, authenticate the payload
+        if authenticate(event.get("payload")):
+            # check if this operation is supported, then run the operation
+            if operation in operations:
+                # a simple "200" request, but suffice it to say the operation worked.
+                response['statusCode'] = 200
 
-            # get the result, stick that in "body"
-            result = operations[operation](event.get('payload'))
-            response['body'] = result
+                # get the result, stick that in "body"
+                result = operations[operation](event.get('payload'))
+                response['body'] = result
+            else:
+                response['statusCode'] = 400
+                response['body']['return_payload']['message'] = f"the api operation: {operation} is not recognized"
         else:
-            response['statusCode'] = 400
-            response['body']['return_payload']['message'] = f"the api operation: {operation} is not recognized"
+            response['statusCode'] = 404
+            response['body']['return_payload']['message'] = 'unrecognized username or password'
     except Exception as err:
         """
         if any sort of error happened while doing this, let's send back a response that indicates that there was an
