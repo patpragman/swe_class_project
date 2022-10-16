@@ -80,7 +80,7 @@ test_card = FlashCard(
     next_study_due=datetime.utcnow() - timedelta(days=1)
 )
 
-obj = test_card.asdict()
+obj = test_card.dict()
 save_card_test_json = {"operation": "create_flashcard",
                        "payload":
                            {"username": "Test",
