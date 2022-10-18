@@ -67,7 +67,7 @@ sys.path.append(
         os.path.dirname(
             os.path.abspath(__file__))))
 
-from lambda_functions.dev_post.model import FlashCard
+from lambda_functions.dev_post.model import FlashCard, User
 from datetime import timedelta, datetime
 
 test_card = FlashCard(
@@ -90,6 +90,25 @@ save_card_test_json = {"operation": "create_flashcard",
                             }
                        }
 post_request = requests.post(url, json=save_card_test_json)
+print(post_request)
+print(post_request.text)
+assert post_request.status_code == 200
+
+
+
+test_user = User(
+    username="patrick",
+    password="pass_test"
+)
+obj = test_user.dict()
+test_user_json = {"operation": "create_user",
+                       "payload":
+                           {"username": "test user",
+                            "password": "Test",
+                            "object": json.dumps(obj)
+                            }
+                       }
+post_request = requests.post(url, json=test_user_json)
 print(post_request)
 print(post_request.text)
 assert post_request.status_code == 200

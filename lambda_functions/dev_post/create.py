@@ -6,6 +6,7 @@ This file contains the code that can create any objects that get stored on S3
 import json
 import boto3
 import botocore
+import hashlib
 
 STORAGE_BUCKET_NAME = f"swe.class.project.storage"
 REGION_NAME = 'us-west-2'
@@ -25,17 +26,21 @@ VALIDATION_MAPPING = {
 
 }
 
-def validate_user(payload: dict) -> dict:
-    # not implemented yet
+def validate_user(user_dictionary: dict) -> dict:
+    # we need to encrypt the user password so we're not storing anything in our database in plain text
 
-    return payload
+    # the user_dictionary has a 'password' key - before we put it into the dictionary, we should hash it so we're
+    # not storing passwords in plain text
+    user_dictionary['password'] = hashlib.sha1(bytes(user_dictionary['password'], 'utf-8')).hexdigest()
 
-def validate_flashcard(payload: dict) -> dict:
+    return user_dictionary
+
+def validate_flashcard(obj: dict) -> dict:
     # we need to make sure the data coming at least has the keys in the data model
     try:
 
         # not implemented
-        return payload
+        return obj
     except Exception as err:
         print(err)
         raise Exception('Data improperly formatted')
@@ -68,7 +73,7 @@ def create(payload: dict, operation: str) -> dict:
 
         # get an object from the payload, then append it to the card list
         obj = json.loads(payload['object'])  # right now this is just raw json, we may want to consider validation here
-        object_list.append(obj)
+        obj = object_list.append(obj)
 
         # now try to save the object
         try:

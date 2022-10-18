@@ -1,5 +1,5 @@
 import json
-from create import create_flashcard
+from create import create_flashcard, create_user
 
 
 def authenticate(payload: dict) -> bool:
@@ -34,7 +34,9 @@ def lambda_handler(event, context):
                            "return_payload": {"message": x}
                            },  # echos back literally all data you send
         'create_flashcard':
-            lambda payload: create_flashcard(payload)  # creates a flashcard and sends back confirmation
+            lambda payload: create_flashcard(payload),  # creates a flashcard and sends back confirmation
+        'create_user':
+            lambda payload: create_user(payload)
     }
 
     try:
