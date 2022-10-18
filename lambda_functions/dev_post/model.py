@@ -62,7 +62,6 @@ class FlashCard:
     def reset_streak(self):
         self.streak = 0
 
-
     def mark_card_remembered(self):
         # add one more time to the streak
         self.streak += 1

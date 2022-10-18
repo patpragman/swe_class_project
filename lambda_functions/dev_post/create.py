@@ -19,12 +19,36 @@ FILE_MAPPING = {
     'flashcard': 'card_list.json'
 }
 
+VALIDATION_MAPPING = {
+    "user": lambda payload: validate_user(payload),
+    "flashcard": lambda payload: validate_flashcard(payload)
+
+}
+
+def validate_user(payload: dict) -> dict:
+    # not implemented yet
+
+    return payload
+
+def validate_flashcard(payload: dict) -> dict:
+    # we need to make sure the data coming at least has the keys in the data model
+    try:
+
+        # not implemented
+        return payload
+    except Exception as err:
+        print(err)
+        raise Exception('Data improperly formatted')
+
+
 
 def create(payload: dict, operation: str) -> dict:
 
 
     s3_client = boto3.resource("s3", region_name=REGION_NAME)
 
+    # we do our data validation here:
+    VALIDATION_MAPPING(operation)
 
 
     try:
