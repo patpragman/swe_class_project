@@ -7,68 +7,73 @@ import json
 import boto3
 import botocore
 
-
-def create_user(payload: dict) -> dict:
-    pass
-
-def create_folder(payload: dict) -> dict:
-    pass
+STORAGE_BUCKET_NAME = f"swe.class.project.storage"
+REGION_NAME = 'us-west-2'
 
 
-def create_flashcard(payload: dict) -> dict:
-    """
-    This function creates a new flashcard object by parsing a dictionary and saving it to s3
+"""
+this is a mapping used in this script to map operation types to a filename in S3
+"""
+FILE_MAPPING = {
+    "user": 'users.json',
+    'flashcard': 'card_list.json'
+}
 
-    :param payload: a dictionary containing the json from the client side
-    :return: a dictionary with the following keys:
-            {"success": True or false depending on if it worked or not,
-            "return_payload": the data the server is going to send back
-            }
-    """
 
-    s3_client = boto3.resource("s3", region_name="us-west-2")
-    """"
-    the client is the tool that we use to talk to s3 - the region name is where our data lives presently...
-    it's in portland oregon
-    """
-    bucket_name = f"swe.class.project.storage"  # this is the name of the folder where all our data lives
+def create(payload: dict, operation: str) -> dict:
 
-    # first try and load the master flashcard list
+
+    s3_client = boto3.resource("s3", region_name=REGION_NAME)
+
+
+
     try:
-        response = s3_client.Object(bucket_name, "card_list.json").get()
-        card_list = json.loads(response['Body'].read())
+        response = s3_client.Object(STORAGE_BUCKET_NAME, FILE_MAPPING[operation]).get()
+        object_list = json.loads(response['Body'].read())
 
     except botocore.exceptions.ClientError as e:
         if e.response['Error']['Code'] == "404":
             # the object doesn't exist, we'll make an empty card list
-            card_list = []
+            object_list = []
         else:
             # Something else unpredictable has happened...
             print(e)
             raise Exception(str(e))
-    else:
+    finally:
         # The card_list does exist, so let's go ahead and append a card to it.
-        pass
 
-    # get an object from the payload, then append it to the card list
-    card = json.loads(payload['object'])  # right now this is just raw json, we may want to consider validation here
-    card_list.append(card)
+        # get an object from the payload, then append it to the card list
+        obj = json.loads(payload['object'])  # right now this is just raw json, we may want to consider validation here
+        object_list.append(obj)
 
-    # now try to save the card
-    try:
-        # you can drop the card_list into the s3 bucket with the following function
-        s3_client.Bucket(bucket_name).put_object(Body=json.dumps(card_list), Key='card_list.json', ContentType='json')
+        # now try to save the object
+        try:
+            # you can drop the card_list into the s3 bucket with the following function
+            s3_client.Bucket(STORAGE_BUCKET_NAME).put_object(Body=json.dumps(object_list), Key=FILE_MAPPING[operation],
+                                                    ContentType='json')
 
-        return {"success": True,
-                "return_payload": {
-                    "message": "card saved!"
+            return {"success": True,
+                    "return_payload": {
+                        "message": f"{operation} saved!"
                     }
-                }
-
-    except botocore.exceptions.ClientError:
-        # if we got a client error, send that back with the appropriate return payload, etc.
-        return {"success": False,
-                "return_payload": {
-                    "message": "we received your card, but there was an error and it did not save."
                     }
-                }
+
+        except botocore.exceptions.ClientError:
+            # if we got a client error, send that back with the appropriate return payload, etc.
+            return {"success": False,
+                    "return_payload": {
+                        "message": f"we received your {operation}, but there was an error and it did not save."
+                    }
+                    }
+
+
+def create_user(payload: dict) -> dict:
+    return create(payload=payload, operation="user")
+
+def create_flashcard(payload: dict) -> dict:
+    return create(payload=payload, operation="flashcard")
+
+
+def create_folder(payload: dict) -> dict:
+    pass
+
