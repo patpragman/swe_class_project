@@ -20,19 +20,19 @@ FILE_MAPPING = {
     'flashcard': 'card_list.json'
 }
 
-VALIDATION_MAPPING = {
-    "user": lambda payload: validate_user(payload),
-    "flashcard": lambda payload: validate_flashcard(payload)
 
+VALIDATION_MAPPING = {
+    "user": lambda payload: encrypt_password(payload),
+    "flashcard": lambda payload: validate_flashcard(payload)
 }
 
-def validate_user(user_dictionary: dict) -> dict:
+def encrypt_password(payload: dict) -> dict:
     # we need to encrypt the user password so we're not storing anything in our database in plain text
 
-    # the user_dictionary has a 'password' key - before we put it into the dictionary, we should hash it so we're
+    # the payload has a 'password' key - before we put it into the dictionary, we should hash it so we're
     # not storing passwords in plain text
-    user_dictionary['password'] = hashlib.sha1(bytes(user_dictionary['password'], 'utf-8')).hexdigest()
-    return user_dictionary
+    payload['password'] = hashlib.sha1(bytes(payload['password'], 'utf-8')).hexdigest()
+    return payload
 
 def validate_flashcard(obj: dict) -> dict:
     # we need to make sure the data coming at least has the keys in the data model
@@ -48,11 +48,7 @@ def validate_flashcard(obj: dict) -> dict:
 
 def create(payload: dict, operation: str) -> dict:
 
-
     s3_client = boto3.resource("s3", region_name=REGION_NAME)
-
-
-
     try:
         response = s3_client.Object(STORAGE_BUCKET_NAME, FILE_MAPPING[operation]).get()
         object_list = json.loads(response['Body'].read())

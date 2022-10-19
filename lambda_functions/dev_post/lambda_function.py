@@ -1,20 +1,41 @@
 import json
-from create import create_flashcard, create_user
+from create import create_flashcard, create_user, encrypt_password, REGION_NAME, STORAGE_BUCKET_NAME
+import boto3
 
-
-def authenticate(payload: dict) -> bool:
+def authenticate(payload: dict, operation) -> bool:
     """
     authenticate the payload and return true or false if the username and password match
     """
 
+    username = payload['username']
+    password = payload['password']
+    operation = operation
+
+    # we can always create a new user, go ahead and allow the script to work from there
+    if operation == "create_user":
+        return True
+    else:
+        # if you're doing anything else, verify credentials before continuing
+        return verify_credentials(username, password)
 
 
-    return True # for now just return true
+def verify_credentials(username: str, password) -> bool:
+    # separate function to connect to S3, pull the user file, and check to see if the username password combo matches
+    s3 = boto3.resource("s3", region_name=REGION_NAME)
+
+    response = s3.Object(STORAGE_BUCKET_NAME, "users.json").get()
+    users = json.loads(response['Body'].read())
+    for user_obj in users:
+        stored_username = user_obj['username']
+        stored_password = username['password']
+
+        if username == stored_username:
+            if password == stored_password:
+                return True
+
+    return False
 
 
-def validate_login(username: str, password) -> bool:
-
-    pass
 
 
 
@@ -50,17 +71,20 @@ def lambda_handler(event, context):
         # we wrap all of this in a try/except block to catch any and all errors - no matter what we want to control
         # the output of the lambda function
         event = json.loads(event['body'])
+
         operation = event['operation']
+        payload = event.get('payload')
+        payload = encrypt_password(payload)
 
         # first, authenticate the payload
-        if authenticate(event.get("payload")):
+        if authenticate(payload, operation):
             # check if this operation is supported, then run the operation
             if operation in operations:
                 # a simple "200" request, but suffice it to say the operation worked.
                 response['statusCode'] = 200
 
                 # get the result, stick that in "body"
-                result = operations[operation](event.get('payload'))
+                result = operations[operation](payload)
                 response['body'] = result
             else:
                 response['statusCode'] = 400
