@@ -8,9 +8,8 @@ import boto3
 import botocore
 import hashlib
 from retrieve import get_all_users_as_json
+from aws_config import STORAGE_BUCKET_NAME, REGION_NAME
 
-STORAGE_BUCKET_NAME = f"swe.class.project.storage"
-REGION_NAME = 'us-west-2'
 
 
 """
