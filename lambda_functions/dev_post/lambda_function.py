@@ -1,6 +1,6 @@
 import json
 from create import create_flashcard, create_user, encrypt_password
-from retrieve import get_all_users_as_json
+from retrieve import get_all_users_as_json, get_all_user_cards
 import boto3
 from aws_config import REGION_NAME, STORAGE_BUCKET_NAME
 
@@ -65,7 +65,9 @@ def lambda_handler(event, context):
         'create_flashcard':
             lambda payload: create_flashcard(payload),  # creates a flashcard and sends back confirmation
         'create_user':
-            lambda payload: create_user(payload)
+            lambda payload: create_user(payload),
+        'get_cards':
+            lambda payload: get_all_user_cards(payload)
     }
 
     try:
