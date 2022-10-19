@@ -31,7 +31,7 @@ def validate_user(user_dictionary: dict) -> dict:
 
     # the user_dictionary has a 'password' key - before we put it into the dictionary, we should hash it so we're
     # not storing passwords in plain text
-    user_dictionary['payload']['password'] = hashlib.sha1(bytes(user_dictionary['password'], 'utf-8')).hexdigest()
+    user_dictionary['password'] = hashlib.sha1(bytes(user_dictionary['password'], 'utf-8')).hexdigest()
     return user_dictionary
 
 def validate_flashcard(obj: dict) -> dict:
@@ -51,8 +51,6 @@ def create(payload: dict, operation: str) -> dict:
 
     s3_client = boto3.resource("s3", region_name=REGION_NAME)
 
-    # we do our data validation here:
-    payload = VALIDATION_MAPPING[operation](payload)
 
 
     try:
@@ -72,11 +70,13 @@ def create(payload: dict, operation: str) -> dict:
 
         # get an object from the payload, then append it to the card list
         obj = json.loads(payload['object'])  # right now this is just raw json, we may want to consider validation here
+        obj = VALIDATION_MAPPING[operation](obj)  # validation of objects happens here
         object_list.append(obj)
 
         # now try to save the object
         try:
-            # you can drop the card_list into the s3 bucket with the following function
+            # you can drop the object into the s3 bucket with the following function
+
             s3_client.Bucket(STORAGE_BUCKET_NAME).put_object(Body=json.dumps(object_list), Key=FILE_MAPPING[operation],
                                                     ContentType='json')
 

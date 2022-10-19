@@ -6,8 +6,15 @@ def authenticate(payload: dict) -> bool:
     """
     authenticate the payload and return true or false if the username and password match
     """
+
+
+
     return True # for now just return true
 
+
+def validate_login(username: str, password) -> bool:
+
+    pass
 
 
 
