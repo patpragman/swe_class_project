@@ -105,10 +105,10 @@ def create(payload: dict, operation: str) -> dict:
 
 
 def create_user(payload: dict) -> dict:
-    return create(payload=payload, operation="create_user")
+    return create(payload=payload, operation="user")
 
 def create_flashcard(payload: dict) -> dict:
-    return create(payload=payload, operation="create_flashcard")
+    return create(payload=payload, operation="flashcard")
 
 
 def create_folder(payload: dict) -> dict:
