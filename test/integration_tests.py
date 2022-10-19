@@ -110,6 +110,7 @@ get_cards_test_json = {
 
 post_request = requests.post(url, json=get_cards_test_json)
 assert post_request.status_code == 200
-return_payload = post_request.json()
+response = post_request.json()
+return_payload = response['return_payload']
 for obj in return_payload['objects']:
     print(obj)
