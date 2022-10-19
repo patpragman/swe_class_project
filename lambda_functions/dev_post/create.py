@@ -32,7 +32,7 @@ def validate_user(user_dictionary: dict) -> dict:
     # the user_dictionary has a 'password' key - before we put it into the dictionary, we should hash it so we're
     # not storing passwords in plain text
     user_dictionary['password'] = hashlib.sha1(bytes(user_dictionary['password'], 'utf-8')).hexdigest()
-
+    print(user_dictionary)
     return user_dictionary
 
 def validate_flashcard(obj: dict) -> dict:
