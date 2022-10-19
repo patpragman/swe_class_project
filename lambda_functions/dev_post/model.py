@@ -4,13 +4,19 @@ from datetime import datetime, timedelta
 class Model:
     pass
 
+
+@dataclass
 class User:
     """
     username
     password
     homedirectory that points at the card objects
     """
-    pass
+    username: str
+    password: str
+
+    def dict(self):
+        return {k: str(v) for k, v in asdict(self).items()}
 
 class FlashCardFolder:
     """
@@ -18,6 +24,7 @@ class FlashCardFolder:
     Class that holds the path to a flashcard
     """
     pass
+
 
 class Deck:
     """

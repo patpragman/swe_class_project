@@ -8,45 +8,6 @@ from os import environ
 
 url = environ['AWS_URL_ENDPOINT']
 
-test_code = {"key1": "value1",
-             "key2": "value2",
-             "key3": "value3",
-             "operation": "create_flashcard",
-             "payload": "test!"
-             }
-
-# testing the response codes for various operations
-test_operations = ["create_flashcard",
-                   "echo",
-                   "bad_payload!"]
-desired_responses = [
-    200, 200, 400
-]
-desired_api_state = [
-    False,
-    True,
-    False
-]
-desired_return_msg_contains = [
-    "unable to create",
-    "test!",
-    "not recognized"
-]
-
-try:
-    for k, v, d, m in list(zip(test_operations, desired_responses, desired_api_state, desired_return_msg_contains)):
-        test_code["operation"] = k
-
-        post_request = requests.post(url, json=test_code)
-        assert post_request.status_code == v
-        response_data = json.loads(post_request.text)
-        assert response_data['success'] == d
-        assert m in str(response_data['return_payload']['message'])
-except AssertionError as err:
-    print(err)
-    print(k, v)
-
-# make a test flashcard
 import os
 import sys
 
@@ -67,11 +28,29 @@ sys.path.append(
         os.path.dirname(
             os.path.abspath(__file__))))
 
-from lambda_functions.dev_post.model import FlashCard
+from lambda_functions.dev_post.model import FlashCard, User
 from datetime import timedelta, datetime
 
+# create a test user
+test_user = User(
+    username="patrick",
+    password="pass_test"
+)
+obj = test_user.dict()
+test_user_json = {"operation": "create_user",
+                  "payload":
+                      {"username": "test user",
+                       "password": "Test",
+                       "object": json.dumps(obj)
+                       }
+                  }
+post_request = requests.post(url, json=test_user_json)
+print(post_request)
+print(post_request.text)
+assert post_request.status_code == 200
+
 test_card = FlashCard(
-    owner="test user",
+    owner="patrick",
     folder="test / not import",
     front_text="test_card_front",
     back_text="test_card_back",
@@ -82,13 +61,14 @@ test_card = FlashCard(
 )
 
 obj = test_card.dict()
-save_card_test_json = {"operation": "create_flashcard",
-                       "payload":
-                           {"username": "test user",
-                            "password": "Test",
-                            "object": json.dumps(obj)
-                            }
-                       }
+save_card_test_json = {
+    "operation": "create_flashcard",
+    "payload":
+        {"username": "patrick",
+         "password": "pass_test",
+         "object": json.dumps(obj)
+         }
+}
 post_request = requests.post(url, json=save_card_test_json)
 print(post_request)
 print(post_request.text)
