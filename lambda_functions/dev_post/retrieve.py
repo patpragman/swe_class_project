@@ -13,6 +13,7 @@ def get_max_id(operation: str) -> int:
             return -1
     elif operation is "create_flashcard":
         cards = get_all_cards_as_list()
+        print(cards)
         if cards:
             return max(int(card['id']) for card in cards)
         else:
