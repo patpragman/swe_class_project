@@ -6,7 +6,7 @@ def authenticate(payload: dict, operation) -> bool:
     """
     authenticate the payload and return true or false if the username and password match
     """
-
+    print(payload)
     username = payload['username']
     password = payload['password']
     operation = operation
@@ -22,7 +22,7 @@ def authenticate(payload: dict, operation) -> bool:
 def verify_credentials(username: str, password) -> bool:
     # separate function to connect to S3, pull the user file, and check to see if the username password combo matches
     s3 = boto3.resource("s3", region_name=REGION_NAME)
-
+    print('verifying credentials')
     response = s3.Object(STORAGE_BUCKET_NAME, "users.json").get()
     users = json.loads(response['Body'].read())
     for user_obj in users:

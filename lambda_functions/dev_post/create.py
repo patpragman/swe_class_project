@@ -31,6 +31,7 @@ def encrypt_password(payload: dict) -> dict:
 
     # the payload has a 'password' key - before we put it into the dictionary, we should hash it so we're
     # not storing passwords in plain text
+    print(payload)
     payload['password'] = hashlib.sha1(bytes(payload['password'], 'utf-8')).hexdigest()
     return payload
 
