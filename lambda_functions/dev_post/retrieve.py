@@ -15,6 +15,8 @@ def get_max_id(operation: str) -> int:
         cards = get_all_cards_as_list()
         if cards:
             return max(int(card['id']) for card in cards)
+        else:
+            return -1
 
 
 def get_all_users_as_json() -> list:
