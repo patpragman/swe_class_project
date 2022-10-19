@@ -53,7 +53,7 @@ def create(payload: dict, operation: str) -> dict:
     s3_client = boto3.resource("s3", region_name=REGION_NAME)
 
     # we do our data validation here:
-    VALIDATION_MAPPING[operation](payload)
+    payload = VALIDATION_MAPPING[operation](payload)
 
 
     try:
