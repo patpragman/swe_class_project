@@ -26,6 +26,7 @@ def verify_credentials(username: str, password) -> bool:
     response = s3.Object(STORAGE_BUCKET_NAME, "users.json").get()
     users = json.loads(response['Body'].read())
     for user_obj in users:
+        print(user_obj)
         stored_username = user_obj['username']
         stored_password = username['password']
 

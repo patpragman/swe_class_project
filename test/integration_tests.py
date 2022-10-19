@@ -64,7 +64,7 @@ obj = test_card.dict()
 save_card_test_json = {
     "operation": "create_flashcard",
     "payload":
-        {"username": "username",
+        {"username": "patrick",
          "password": "pass_test",
          "object": json.dumps(obj)
          }
