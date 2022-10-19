@@ -2,6 +2,7 @@ import json
 from create import create_flashcard, create_user, encrypt_password
 from retrieve import get_all_users_as_json
 import boto3
+from aws_config import REGION_NAME, STORAGE_BUCKET_NAME
 
 def authenticate(payload: dict, operation) -> bool:
     """
