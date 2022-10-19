@@ -28,7 +28,7 @@ def verify_credentials(username: str, password) -> bool:
     for user_obj in users:
         print(user_obj)
         stored_username = user_obj['username']
-        stored_password = username['password']
+        stored_password = user_obj['password']
 
         if username == stored_username:
             if password == stored_password:
