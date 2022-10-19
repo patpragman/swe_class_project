@@ -31,8 +31,9 @@ def encrypt_password(payload: dict) -> dict:
 
     # the payload has a 'password' key - before we put it into the dictionary, we should hash it so we're
     # not storing passwords in plain text
-    print(payload)
+    print('encrypting payload')
     payload['password'] = hashlib.sha1(bytes(payload['password'], 'utf-8')).hexdigest()
+    print('payload encrypted')
     return payload
 
 def validate_flashcard(obj: dict) -> dict:
@@ -66,7 +67,9 @@ def create(payload: dict, operation: str) -> dict:
         # The card_list does exist, so let's go ahead and append a card to it.
 
         # get an object from the payload, then append it to the card list
+        print('creating object')
         obj = json.loads(payload['object'])  # right now this is just raw json, we may want to consider validation here
+        print('validating object')
         obj = VALIDATION_MAPPING[operation](obj)  # validation of objects happens here
         object_list.append(obj)
 
