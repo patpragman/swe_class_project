@@ -75,7 +75,7 @@ def create(payload: dict, operation: str) -> dict:
 
         # get an object from the payload, then append it to the card list
         print('creating object')
-        obj = json.loads(payload['object'])  # right now this is just raw json, we may want to consider validation here
+        obj = json.loads(payload['object'])  # get the raw json
         print('validating object')
         obj = VALIDATION_MAPPING[operation](obj)  # validation of objects happens here
         obj['id'] = get_max_id(operation)
