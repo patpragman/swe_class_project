@@ -73,7 +73,7 @@ def create(payload: dict, operation: str) -> dict:
 
         # get an object from the payload, then append it to the card list
         obj = json.loads(payload['object'])  # right now this is just raw json, we may want to consider validation here
-        obj = object_list.append(obj)
+        object_list.append(obj)
 
         # now try to save the object
         try:
