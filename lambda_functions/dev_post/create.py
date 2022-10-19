@@ -7,6 +7,7 @@ import json
 import boto3
 import botocore
 import hashlib
+from retrieve import get_all_users_as_json
 
 STORAGE_BUCKET_NAME = f"swe.class.project.storage"
 REGION_NAME = 'us-west-2'
@@ -22,7 +23,7 @@ FILE_MAPPING = {
 
 
 VALIDATION_MAPPING = {
-    "user": lambda payload: encrypt_password(payload),
+    "user": lambda payload: validate_new_user(payload),
     "flashcard": lambda payload: validate_flashcard(payload)
 }
 
@@ -35,6 +36,13 @@ def encrypt_password(payload: dict) -> dict:
     payload['password'] = hashlib.sha1(bytes(payload['password'], 'utf-8')).hexdigest()
     print('payload encrypted')
     return payload
+
+def validate_new_user(payload: dict) -> dict:
+
+    for user in get_all_users_as_json():
+        if payload['username'] == user['username']:
+            raise Exception("User already exists")
+    return encrypt_password(payload)
 
 def validate_flashcard(obj: dict) -> dict:
     # we need to make sure the data coming at least has the keys in the data model
