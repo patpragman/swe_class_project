@@ -7,7 +7,7 @@ import json
 import boto3
 import botocore
 import hashlib
-from retrieve import get_all_users_as_json
+from retrieve import get_all_users_as_json, get_max_id
 from aws_config import STORAGE_BUCKET_NAME, REGION_NAME
 
 
@@ -75,9 +75,11 @@ def create(payload: dict, operation: str) -> dict:
 
         # get an object from the payload, then append it to the card list
         print('creating object')
-        obj = json.loads(payload['object'])  # right now this is just raw json, we may want to consider validation here
+        obj = json.loads(payload['object'])  # get the raw json
         print('validating object')
         obj = VALIDATION_MAPPING[operation](obj)  # validation of objects happens here
+        obj['id'] = get_max_id(operation) + 1
+
         object_list.append(obj)
 
         # now try to save the object

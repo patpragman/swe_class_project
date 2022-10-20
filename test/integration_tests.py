@@ -73,3 +73,44 @@ post_request = requests.post(url, json=save_card_test_json)
 print(post_request)
 print(post_request.text)
 assert post_request.status_code == 200
+
+# now create 10 test cards
+for i in range(0, 10):
+    owner = 'patrick' if i % 2 == 0 else "not"
+    test_card = FlashCard(
+        owner=owner,
+        folder="testing",
+        front_text=f"test_card_front_{i}",
+        back_text="test_card_back",
+        streak=0,
+        create_date=datetime.utcnow() - timedelta(days=6),
+        last_study_date=datetime.utcnow() - timedelta(days=5),
+        next_study_due=datetime.utcnow() - timedelta(days=1)
+    )
+
+    obj = test_card.dict()
+    save_card_test_json = {
+        "operation": "create_flashcard",
+        "payload":
+            {"username": "patrick",
+             "password": "pass_test",
+             "object": json.dumps(obj)
+             }
+    }
+    post_request = requests.post(url, json=save_card_test_json)
+    assert post_request.status_code == 200
+
+get_cards_test_json = {
+    "operation": "get_cards",
+    "payload":{
+        "username": "patrick",
+        "password": "pass_test",
+    }
+}
+
+post_request = requests.post(url, json=get_cards_test_json)
+assert post_request.status_code == 200
+response = post_request.json()
+return_payload = response['return_payload']
+for obj in return_payload['objects']:
+    print(obj)
