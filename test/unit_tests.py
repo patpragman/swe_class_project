@@ -29,9 +29,9 @@ if __name__ == "__main__":
     print("starting unit tests...")
 
     # let's import Flashcard class and test it
-    from lambda_functions.dev_post.model import run_flashcard_tests
+    from lambda_functions.dev_post.model import run_flashcard_unit_tests
     from datetime import datetime, timedelta
 
     # put all your tests below - they'll be actuated during automated testing
-    run_flashcard_tests()
+    run_flashcard_unit_tests()
     print("unit tests complete - pass!")

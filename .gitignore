@@ -1,3 +1,4 @@
 # git ignore tells git to ignore certain files when it updates
 venv
 stats.sh
+delete_all.py
