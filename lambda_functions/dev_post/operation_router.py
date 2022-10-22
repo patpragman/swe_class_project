@@ -19,7 +19,7 @@ def retrieve_operation(operation: str):
     # I'd prefer a hash table, but this is probably more reasonable -pp
     print(f'getting result for operation \'{operation}\'')
     if operation == "get_cards":
-        lambda payload: get_all_user_cards(payload)
+        return lambda payload: get_all_user_cards(payload)
     elif operation == "create_flashcard":
         return lambda payload: create_flashcard(payload)  # return the create flashcard function
     elif operation == "create_user":
