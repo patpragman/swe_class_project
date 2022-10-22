@@ -40,6 +40,7 @@ def get_all_cards_by_user_as_json(username) -> list:
 
 def get_all_user_cards(payload) -> dict:
     username = payload['username']
+    print('getting all cards for', username)
 
     cards = {"success": True,
              "return_payload": {

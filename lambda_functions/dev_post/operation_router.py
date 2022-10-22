@@ -1,6 +1,6 @@
 from collections.abc import Callable
 from create import create_flashcard, create_user
-from retrieve import get_all_users_as_json, get_all_user_cards
+from retrieve import get_all_user_cards
 
 
 

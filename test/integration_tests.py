@@ -110,6 +110,8 @@ get_cards_test_json = {
 }
 
 post_request = requests.post(url, json=get_cards_test_json)
+print(post_request)
+print(post_request.text)
 assert post_request.status_code == 200
 response = post_request.json()
 return_payload = response['return_payload']
