@@ -45,7 +45,7 @@ def lambda_handler(event, context):
     '''
 
     response = {
-        "statusCode": 500,  # start with the assumption that we broke something
+        "statusCode": 404,  # start with the assumption that we broke something
         "body": {
             "success": False,
             "return_payload": {
