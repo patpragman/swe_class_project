@@ -46,6 +46,7 @@ test_user_json = {"operation": "create_user",
                   }
 post_request = requests.post(url, json=test_user_json)
 print(post_request)
+print(post_request.text)
 assert post_request.status_code == 200
 
 test_card = FlashCard(
