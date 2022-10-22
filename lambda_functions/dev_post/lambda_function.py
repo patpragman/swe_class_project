@@ -37,9 +37,6 @@ def verify_credentials(username: str, password) -> bool:
     return False
 
 
-
-
-
 def lambda_handler(event, context):
     '''
     Provide an event that contains the following keys:
@@ -70,13 +67,12 @@ def lambda_handler(event, context):
         if authenticate(payload, operation):
             # check if this operation is supported, then run that operation
             result_function = retrieve_operation(operation)
+            response['statusCode'] == 200
 
             response['body'] = result_function(payload)
             if 'unrecognized' in response['body']['return_payload']['message']:
                 # unrecognized api operation
                 response['statusCode'] == 400
-            else:
-                response['statusCode'] == 200
 
         else:
             response['statusCode'] = 404
