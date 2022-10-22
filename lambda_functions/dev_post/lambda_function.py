@@ -69,7 +69,7 @@ def lambda_handler(event, context):
             result_function = retrieve_operation(operation)
             response['statusCode'] == 200
 
-            response['body'] = result_function(payload)
+            response['body']['return_payload'] = result_function(payload)
             if 'unrecognized' in response['body']['return_payload']['message']:
                 # unrecognized api operation
                 response['statusCode'] == 400
