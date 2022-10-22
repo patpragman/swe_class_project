@@ -44,19 +44,20 @@ def lambda_handler(event, context):
       - payload: a parameter to pass to the operation being performed
     '''
 
-
+    response = {
+        'statusCode': 500,
+        "body": {
+            "success": False,
+            "return_payload": {}
+        },
+    }
 
     try:
         # we wrap all of this in a try/except block to catch any and all errors - no matter what we want to control
         # the output of the lambda function
 
         # try to build a response here
-        response = {
-            "body": {
-                "success": False,
-                "return_payload": {}
-            },
-        }
+
         event = json.loads(event['body'])
 
         operation = event['operation']
@@ -68,12 +69,12 @@ def lambda_handler(event, context):
             # check if this operation is supported, then run that operation
             print("retrieving result function")
             result_function = retrieve_operation(operation)
-            response['statusCode'] == 200
+            response['statusCode'] = 200
 
             response['body'] = result_function(payload)
             if not response['body']['success']:
                 # unrecognized api operation
-                response['statusCode'] == 400
+                response['statusCode'] = 400
 
         else:
             response['statusCode'] = 404
