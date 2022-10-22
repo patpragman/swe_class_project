@@ -44,19 +44,21 @@ def lambda_handler(event, context):
       - payload: a parameter to pass to the operation being performed
     '''
 
-    response = {
-        "statusCode": 404,  # start with the assumption that we broke something
-        "body": {
-            "success": False,
-            "return_payload": {
-                "message": "unexplained server error"
-            }
-        },
-    }
-
     try:
         # we wrap all of this in a try/except block to catch any and all errors - no matter what we want to control
         # the output of the lambda function
+        response = {
+            "statusCode": 500,  # start with the assumption that we broke something
+            "body": {
+                "success": False,
+                "return_payload": {
+                    "message": "unexplained server error"
+                }
+            },
+        }
+
+
+
         event = json.loads(event['body'])
 
         operation = event['operation']
