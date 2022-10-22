@@ -4,7 +4,7 @@ from retrieve import get_all_users_as_json, get_all_user_cards
 
 
 
-def retrieve_operation(operation: str) -> Callable[[dict], dict]:
+def retrieve_operation(operation: str):
     """
     takes an operation, finds the appropriate function for that operation, then returns
     :param operation: a str that tells this method what function to retrieve
