@@ -79,7 +79,7 @@ This document lays out what the JSON to and from the server should look like
         lambda_handler()
     }
 
-    class Operation{
+    class operation_router{
         create(payload)
         read(payload)
         update(payload)
@@ -108,9 +108,9 @@ This document lays out what the JSON to and from the server should look like
 
     json_from_client --> AWS
 
-    AWS --> Operation
+    AWS --> operation_router
 
-    Operation --> ReturnPayload
+    operation_router --> ReturnPayload
 
     ReturnPayload --> ResponseBody
 

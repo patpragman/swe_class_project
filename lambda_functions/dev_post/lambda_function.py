@@ -3,12 +3,12 @@ from create import create_flashcard, create_user, encrypt_password
 from retrieve import get_all_users_as_json, get_all_user_cards
 import boto3
 from aws_config import REGION_NAME, STORAGE_BUCKET_NAME
+from operation_router import retrieve_operation
 
 def authenticate(payload: dict, operation) -> bool:
     """
     authenticate the payload and return true or false if the username and password match
     """
-    print(payload)
     username = payload['username']
     password = payload['password']
     operation = operation
@@ -57,19 +57,6 @@ def lambda_handler(event, context):
         },
     }
 
-    # this code is the wiring between the json sent as post request and the functions we have in our app that does stuff
-    operations = {
-        'echo': lambda x: {"success": True,
-                           "return_payload": {"message": x}
-                           },  # echos back literally all data you send
-        'create_flashcard':
-            lambda payload: create_flashcard(payload),  # creates a flashcard and sends back confirmation
-        'create_user':
-            lambda payload: create_user(payload),
-        'get_cards':
-            lambda payload: get_all_user_cards(payload)
-    }
-
     try:
         # we wrap all of this in a try/except block to catch any and all errors - no matter what we want to control
         # the output of the lambda function
@@ -81,17 +68,16 @@ def lambda_handler(event, context):
 
         # first, authenticate the payload
         if authenticate(payload, operation):
-            # check if this operation is supported, then run the operation
-            if operation in operations:
-                # a simple "200" request, but suffice it to say the operation worked.
-                response['statusCode'] = 200
+            # check if this operation is supported, then run that operation
+            result_function = retrieve_operation(operation)
 
-                # get the result, stick that in "body"
-                result = operations[operation](payload)
-                response['body'] = result
+            response['body'] = result_function(payload)
+            if 'unrecognized' in response['body']['return_payload']['message']:
+                # unrecognized api operation
+                response['statusCode'] == 400
             else:
-                response['statusCode'] = 400
-                response['body']['return_payload']['message'] = f"the api operation: {operation} is not recognized"
+                response['statusCode'] == 200
+
         else:
             response['statusCode'] = 404
             response['body']['return_payload']['message'] = 'unrecognized username or password'
