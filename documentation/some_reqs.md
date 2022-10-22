@@ -2,6 +2,8 @@
 
 ## JSON Sequence Diagrams
 
+This is the basic flow of data on the back end side of the application.
+
 ```mermaid
 
 sequenceDiagram
@@ -10,12 +12,12 @@ sequenceDiagram
     participant C as authenticate(payload, operation)
     participant D as Execute Operation
 
-    A->>+B: JSON to AWS Lambda
+    A->>+B: JSON to AWS Lambda as a post request
     B->>-A: Invalid JSON or Error
     B->>+C: Username, Password, Payload
-    C->>A: Error 500
-    C->>-A: Bad Username or Password
-
+    C->>A: Big scary error, send an Error 500 back to the client
+    C->>-A: Bad Username or Password, send ERROR 404
+    C->>D:  Payload gets passed to function
     D->>A:  Error 500 on server Error
     D->>A:  Error that didn't break everything, send a 200 Code, but an explanation of the error
     D->>A:  Success!  Send status code 200, and any data that comes back
