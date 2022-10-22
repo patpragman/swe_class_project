@@ -4,7 +4,7 @@ from retrieve import get_all_users_as_json, get_all_user_cards
 
 
 
-def retrieve_operation(operation: str) -> Callable:
+def retrieve_operation(operation: str) -> Callable[[dict], dict]:
     """
     takes an operation, finds the appropriate function for that operation, then returns
     :param operation: a str that tells this method what function to retrieve
@@ -17,7 +17,7 @@ def retrieve_operation(operation: str) -> Callable:
     }
     # the wiring between operations and payloads lives in the "gross" list of if then statments below
     # I'd prefer a hash table, but this is probably more reasonable -pp
-
+    print(f'getting result for operation \'{operation}\'')
     if operation == "get_cards":
         lambda payload: get_all_user_cards(payload)
     elif operation == "create_flashcard":
