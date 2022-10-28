@@ -62,7 +62,7 @@ This document lays out what the JSON to and from the server should look like
     class User{
         username
         password
-        ...?
+        ... tbd?
         dict()
     }
 
@@ -82,6 +82,7 @@ This document lays out what the JSON to and from the server should look like
     }
 
     class operation_router{
+       
         create(payload)
         read(payload)
         update(payload)
