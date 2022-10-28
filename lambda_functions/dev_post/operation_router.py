@@ -1,7 +1,7 @@
 from collections.abc import Callable
 from create import create_flashcard, create_user
 from retrieve import get_all_user_cards
-
+from update import update_card_by_id
 
 
 def retrieve_operation(operation: str):
@@ -24,9 +24,12 @@ def retrieve_operation(operation: str):
         return lambda payload: create_flashcard(payload)  # return the create flashcard function
     elif operation == "create_user":
         return lambda payload: create_user(payload)
+    elif operation == "update_card":
+        return lambda payload: update_card_by_id(payload)
     elif operation == "echo":
         # this was the first thing we got AWS to do, let's leave it in here for the time being
         return lambda x: {"success": True, "return_payload": {"message": x} }
+
     else:
         return unrecognized_payload
 

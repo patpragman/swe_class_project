@@ -12,3 +12,5 @@ export default defineConfig({
     }
   }
 })
+
+module.exports = {  publicPath: process.env.NODE_ENV === "production" ? "/swe_class_project/" : "/",};
