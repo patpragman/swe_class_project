@@ -1,6 +1,6 @@
 import json
 from create import create_flashcard, create_user, encrypt_password
-from retrieve import get_all_users_as_json, get_all_user_cards
+from retrieve import get_all_users_as_list, get_all_user_cards
 import boto3
 from aws_config import REGION_NAME, STORAGE_BUCKET_NAME
 from operation_router import retrieve_operation
@@ -25,7 +25,7 @@ def verify_credentials(username: str, password) -> bool:
     # separate function to connect to S3, pull the user file, and check to see if the username password combo matches
     s3 = boto3.resource("s3", region_name=REGION_NAME)
     print('verifying credentials')
-    for user_obj in get_all_users_as_json():
+    for user_obj in get_all_users_as_list():
         print(user_obj)
         stored_username = user_obj['username']
         stored_password = user_obj['password']
