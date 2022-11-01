@@ -115,9 +115,6 @@ print(post_request.text)
 assert post_request.status_code == 200
 response = post_request.json()
 return_payload = response['return_payload']
-for obj in return_payload['objects']:
-    print(obj)
-
 
 updating_card = FlashCard(
     owner="patrick",
@@ -136,6 +133,7 @@ update_card_test = {
         "username": "patrick",
         "password": "pass_test",
         "id": 0,
+        "object": updating_card
 
     }
 }
