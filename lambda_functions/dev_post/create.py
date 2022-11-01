@@ -7,7 +7,7 @@ import json
 import boto3
 import botocore
 import hashlib
-from retrieve import get_all_users_as_json, get_max_id
+from retrieve import get_all_users_as_list, get_max_id
 from aws_config import STORAGE_BUCKET_NAME, REGION_NAME
 
 
@@ -38,7 +38,7 @@ def encrypt_password(payload: dict) -> dict:
 
 def validate_new_user(payload: dict) -> dict:
 
-    for user in get_all_users_as_json():
+    for user in get_all_users_as_list():
         if payload['username'] == user['username']:
             raise Exception("User already exists")
     return encrypt_password(payload)
@@ -78,7 +78,7 @@ def create(payload: dict, operation: str) -> dict:
         obj = json.loads(payload['object'])  # get the raw json
         print('validating object')
         obj = VALIDATION_MAPPING[operation](obj)  # validation of objects happens here
-        obj['id'] = get_max_id(operation) + 1
+        obj['id'] = get_max_id(operation) + 1  # get the maximum id of a card, add 1 to that.
 
         object_list.append(obj)
 

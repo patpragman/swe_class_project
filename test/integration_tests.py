@@ -72,6 +72,7 @@ save_card_test_json = {
 post_request = requests.post(url, json=save_card_test_json)
 print(post_request)
 print(post_request.text)
+print(post_request.raw)
 assert post_request.status_code == 200
 
 # now create 10 test cards
@@ -109,8 +110,24 @@ get_cards_test_json = {
 }
 
 post_request = requests.post(url, json=get_cards_test_json)
+print(post_request)
+print(post_request.text)
 assert post_request.status_code == 200
 response = post_request.json()
 return_payload = response['return_payload']
 for obj in return_payload['objects']:
     print(obj)
+
+
+update_card_test = {
+    "operation": "get_cards",
+    "payload":{
+        "username": "patrick",
+        "password": "pass_test",
+        "id": 0
+    }
+}
+post_request = requests.post(url, json=update_card_test)
+print(post_request)
+print(post_request.text)
+assert post_request.status_code == 200

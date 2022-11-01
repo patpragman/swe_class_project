@@ -6,7 +6,7 @@ def get_max_id(operation: str) -> int:
     # retrieve information about the largest id for various objects
     print('operation:', operation)
     if operation == "user":
-        users = get_all_users_as_json()
+        users = get_all_users_as_list()
         if users:
             return max(int(user['id']) for user in users)
         else:
@@ -19,7 +19,7 @@ def get_max_id(operation: str) -> int:
             return 0
 
 
-def get_all_users_as_json() -> list:
+def get_all_users_as_list() -> list:
     """
     connect to s3 and get the big list of json that contains all the user objects
     :return: big list of user objects as json
@@ -34,17 +34,18 @@ def get_all_cards_as_list() -> list:
     response = s3_client.Object(STORAGE_BUCKET_NAME, "card_list.json").get()
     return json.loads(response['Body'].read())
 
-def get_all_cards_by_user_as_json(username) -> list:
+def get_all_cards_by_user_as_list(username) -> list:
     return [card for card in get_all_cards_as_list() if card["owner"] == username]
 
 
 def get_all_user_cards(payload) -> dict:
     username = payload['username']
+    print('getting all cards for', username)
 
     cards = {"success": True,
              "return_payload": {
                  "message": f"fetched the following cards for {username}",
-                 "objects": get_all_cards_by_user_as_json(username)
+                 "objects": get_all_cards_by_user_as_list(username)
              }
              }
     return cards
