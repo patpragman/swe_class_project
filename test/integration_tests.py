@@ -142,7 +142,7 @@ print(post_request)
 print(post_request.text)
 assert post_request.status_code == 200
 
-for card in post_request.json()['object']:
+for card in post_request.json()['return_payload']['objects']:
     if card['id'] == "2":
         assert card['front_text'] == updating_card.front_text
         assert card['back_text'] == updating_card.back_text
