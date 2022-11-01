@@ -54,6 +54,7 @@ jobs:
         AWS_REGION: ${{ secrets.AWS_REGION }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
+        python delete_all.py
         python test/integration_tests.py
         
         
