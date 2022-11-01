@@ -133,7 +133,7 @@ update_card_test = {
         "username": "patrick",
         "password": "pass_test",
         "id": 0,
-        "object": updating_card
+        "object": json.dumps(updating_card)
 
     }
 }
