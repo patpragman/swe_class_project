@@ -119,15 +119,33 @@ for obj in return_payload['objects']:
     print(obj)
 
 
+updating_card = FlashCard(
+    owner="patrick",
+    folder="test / not import",
+    front_text="edited test card",
+    back_text="edited test card back",
+    streak=0,
+    create_date=datetime.utcnow() - timedelta(days=6),
+    last_study_date=datetime.utcnow() - timedelta(days=5),
+    next_study_due=datetime.utcnow() - timedelta(days=1)
+)
+
 update_card_test = {
-    "operation": "get_cards",
+    "operation": "update_card",
     "payload":{
         "username": "patrick",
         "password": "pass_test",
-        "id": 0
+        "id": 0,
+
     }
 }
 post_request = requests.post(url, json=update_card_test)
 print(post_request)
 print(post_request.text)
 assert post_request.status_code == 200
+
+for card in post_request.json():
+    if card['id'] == 0:
+        assert card['front_text'] == updating_card.front_text
+        assert card['back_text'] == updating_card.back_text
+
