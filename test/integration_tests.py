@@ -132,7 +132,7 @@ update_card_test = {
     "payload":{
         "username": "patrick",
         "password": "pass_test",
-        "id": 0,
+        "id": 2,
         "object": json.dumps(updating_card.dict())
 
     }
@@ -143,7 +143,7 @@ print(post_request.text)
 assert post_request.status_code == 200
 
 for card in post_request.json():
-    if card['id'] == 0:
+    if card['id'] == "0":
         assert card['front_text'] == updating_card.front_text
         assert card['back_text'] == updating_card.back_text
 
