@@ -113,8 +113,7 @@ post_request = requests.post(url, json=get_cards_test_json)
 print(post_request)
 print(post_request.text)
 assert post_request.status_code == 200
-response = post_request.json()
-return_payload = response['return_payload']
+
 
 updating_card = FlashCard(
     owner="patrick",
@@ -134,15 +133,20 @@ update_card_test = {
         "password": "pass_test",
         "id": 2,
         "object": json.dumps(updating_card.dict())
-
     }
 }
+
 post_request = requests.post(url, json=update_card_test)
-print(post_request)
-print(post_request.text)
+
+
 assert post_request.status_code == 200
 
-for card in post_request.json()['return_payload']['objects']:
+
+response = post_request.json()
+return_payload = response['return_payload']
+
+
+for card in return_payload:
     if card['id'] == "2":
         assert card['front_text'] == updating_card.front_text
         assert card['back_text'] == updating_card.back_text
