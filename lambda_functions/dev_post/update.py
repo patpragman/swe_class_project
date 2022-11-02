@@ -13,7 +13,7 @@ def update_card_by_id(payload: dict) -> dict:
     and writes new card_list back to s3. Returns json containing the 
     updated card_list"""
 
-    updated_card = payload['object']
+    updated_card = json.loads(payload['object'])
 
     card_list = get_all_cards_by_user_as_list(username)
 
