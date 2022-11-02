@@ -54,9 +54,11 @@ def delete_user(payload):
     # if user exists, delete all that user's cards
     original_card_list = get_all_cards_as_list()
     new_card_list = []
+    cards_deleted = 0
     while original_card_list:
         card = original_card_list.pop()
         if card['owner'] == username:
+            cards_deleted += 1
             continue
         else:
             new_card_list.append(card)
