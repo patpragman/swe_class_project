@@ -40,14 +40,3 @@ def update_card_by_id(payload: dict) -> dict:
         'message': f"card {card_id} successfully updated", \
             'objects': card_list}
 
-
-
-
-
-
-    return {"success": False,
-            "return_payload": {
-                "message": f"not implemented yet",
-                "objects": get_all_cards_by_user_as_list(username)
-            }
-            }
