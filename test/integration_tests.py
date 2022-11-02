@@ -146,7 +146,7 @@ response = post_request.json()
 return_payload = response['return_payload']
 
 
-for card in return_payload:
+for card in return_payload['objects']:
     if card['id'] == "2":
         assert card['front_text'] == updating_card.front_text
         assert card['back_text'] == updating_card.back_text
