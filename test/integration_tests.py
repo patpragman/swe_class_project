@@ -149,7 +149,8 @@ print(return_payload)
 
 print('testing cards to check update...')
 for card in return_payload['objects']:
-    if card['id'] == "2":
+
+    if card['id'] == 2:
         assert card['front_text'] == updating_card.front_text
         assert card['back_text'] == updating_card.back_text
 
