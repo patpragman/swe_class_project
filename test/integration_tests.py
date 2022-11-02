@@ -138,14 +138,16 @@ update_card_test = {
 
 post_request = requests.post(url, json=update_card_test)
 
-
+print('testing update function')
 assert post_request.status_code == 200
 
 
+print('retrieving json')
 response = post_request.json()
 return_payload = response['return_payload']
+print(return_payload)
 
-
+print('testing cards to check update...')
 for card in return_payload['objects']:
     if card['id'] == "2":
         assert card['front_text'] == updating_card.front_text
