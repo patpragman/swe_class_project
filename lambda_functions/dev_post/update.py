@@ -13,33 +13,41 @@ def update_card_by_id(payload: dict) -> dict:
     and writes new card_list back to s3. Returns json containing the 
     updated card_list"""
 
-    updated_card = json.loads(payload['object'])
-    updated_card['id'] = card_id
+    updated_card = payload['object']
+
 
     card_list = get_all_cards_by_user_as_list(username)
 
     try:
         match = False
         for (i, card) in enumerate(card_list):
-            if card['id'] == card_id:
+            if int(card['id']) == card_id:
                 match = True
                 card_list[i] = updated_card
         if not match:
             raise IndexError
     except IndexError:
-        return {'success': False,
-                'return_payload': {
-                    "message": 'card id does not exist in user card list',
-                    'return_payload': card_list}
-                }
+        return {'success': False, \
+            "message": 'card id does not exist in user card list', \
+                'objects': card_list}
 
     # now we write card_list back to s3
     s3_client = boto3.resource("s3", region_name=REGION_NAME)
     s3_client.Bucket(STORAGE_BUCKET_NAME).put_object(Body=json.dumps(card_list), Key='card_list.json',
-                                                     ContentType='json')
+                                                    ContentType='json')
+    
+    return {'success': True, \
+        'message': f"card {card_id} successfully updated", \
+            'objects': card_list}
 
-    return {'success': True,
+
+
+
+
+
+    return {"success": False,
             "return_payload": {
-                'message': f"card {card_id} successfully updated", \
-                'objects': card_list}
+                "message": f"not implemented yet",
+                "objects": get_all_cards_by_user_as_list(username)
+            }
             }
