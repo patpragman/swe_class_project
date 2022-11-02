@@ -144,6 +144,7 @@ assert post_request.status_code == 200
 
 print('retrieving json')
 response = post_request.json()
+print(response)
 return_payload = response['return_payload']
 print(return_payload)
 
