@@ -14,7 +14,7 @@ def delete_flashcard(payload) -> dict:
     try:
         match = False
         for (i, card) in enumerate(card_list):
-            if int(card['id']) == id:
+            if card['id'] == id:
                 match = True
                 card_list.pop(i)
         if not match:
@@ -52,17 +52,24 @@ def delete_user(payload):
         raise Exception('no user with matching id found')
 
     # if user exists, delete all that user's cards
-    card_list = get_all_cards_as_list()
-    cards_deleted = 0
-    for (i, card) in enumerate(card_list):
-        if card['username'] == username:
-            card_list.pop(i)
-            cards_deleted += 1
+    original_card_list = get_all_cards_as_list()
+    new_card_list = []
+    while original_card_list:
+        card = original_card_list.pop()
+        if card['owner'] == username:
+            continue
+        else:
+            new_card_list.append(card)
 
-    # now delete user
+    # write the new_card_list back to s3
+    s3_client = boto3.resource("s3", region_name=REGION_NAME)
+    s3_client.Bucket(STORAGE_BUCKET_NAME).put_object(Body=json.dumps(new_card_list), Key='card_list.json',
+                                                    ContentType='json')
+
+    # delete user
     user_list.pop(user_idx)
 
-    # write card_list back to s3
+    # write user_list back to s3
     s3_client = boto3.resource("s3", region_name=REGION_NAME)
     s3_client.Bucket(STORAGE_BUCKET_NAME).put_object(Body=json.dumps(user_list), Key='user_list.json',
                                                 ContentType='json')
