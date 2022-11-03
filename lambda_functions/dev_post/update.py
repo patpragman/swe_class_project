@@ -39,7 +39,7 @@ def update_card_by_id(payload: dict) -> dict:
 
     return {'success': True,
 
-            "return_payload"{
+            "return_payload":{
                 'message': f"card {card_id} successfully updated", \
                 'objects': card_list
                 }
