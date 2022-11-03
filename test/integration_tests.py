@@ -139,7 +139,7 @@ update_card_test = {
 post_request = requests.post(url, json=update_card_test)
 
 print('testing update function')
-print(post_request.json)
+print(post_request.json())
 assert post_request.status_code == 200
 
 
