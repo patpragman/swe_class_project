@@ -22,6 +22,7 @@ def update_card_by_id(payload: dict) -> dict:
         for (i, card) in enumerate(card_list):
             if int(card['id']) == card_id:
                 match = True
+                updated_card['id'] == card_id
                 card_list[i] = updated_card
         if not match:
             raise IndexError
