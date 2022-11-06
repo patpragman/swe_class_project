@@ -30,6 +30,7 @@ jobs:
     - name: Run Unit Tests
       run: |
         python test/unit_tests.py
+        pytion lambda_functions/dev_post/create.py
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1

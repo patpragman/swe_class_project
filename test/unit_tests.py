@@ -34,4 +34,3 @@ if __name__ == "__main__":
 
     # put all your tests below - they'll be actuated during automated testing
     run_flashcard_unit_tests()
-    print("unit tests complete - pass!")
