@@ -56,6 +56,14 @@ def validate_flashcard(obj: dict) -> dict:
 
 
 def create(payload: dict, operation: str) -> dict:
+    """
+    this takes a payload and an operation,
+
+    testing for this is done in the integration tests
+
+    """
+
+
 
     s3_client = boto3.resource("s3", region_name=REGION_NAME)
     try:
@@ -114,3 +122,16 @@ def create_flashcard(payload: dict) -> dict:
 def create_folder(payload: dict) -> dict:
     pass
 
+
+def unit_test_encrypt():
+    # test the encryption function
+    test_payload = {"password": "hello_world"}
+    test_payload = encrypt_password(test_payload)
+    assert test_payload['password'] == hashlib.sha1(bytes("hello_world", 'utf-8')).hexdigest()
+
+
+if __name__ == "__main__":
+    print('running unit tests for create.py')
+    unit_test_encrypt()
+
+    print('unit tests complete')
