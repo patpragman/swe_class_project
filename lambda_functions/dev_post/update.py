@@ -12,8 +12,10 @@ def update_card_by_id(payload: dict) -> dict:
     
     and writes new card_list back to s3. Returns json containing the 
     updated card_list"""
-
-    updated_card = payload['object']
+    print('payload:')
+    print(payload)
+    updated_card = json.loads(payload['object'])
+    print(updated_card)
 
     card_list = get_all_cards_by_user_as_list(username)
 
@@ -22,7 +24,7 @@ def update_card_by_id(payload: dict) -> dict:
         for (i, card) in enumerate(card_list):
             if int(card['id']) == card_id:
                 match = True
-                updated_card['id'] == card_id
+                updated_card['id'] = card_id
                 card_list[i] = updated_card
         if not match:
             raise IndexError
@@ -41,7 +43,7 @@ def update_card_by_id(payload: dict) -> dict:
     return {'success': True,
 
             "return_payload":{
-                'message': f"card {card_id} successfully updated", \
+                'message': f"card {card_id} successfully updated",
                 'objects': card_list
                 }
             }

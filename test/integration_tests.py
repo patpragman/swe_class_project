@@ -142,14 +142,13 @@ print('testing update function')
 print(post_request.json())
 assert post_request.status_code == 200
 
-
+"""
 print('retrieving json')
 response = post_request.json()
-print(response)
 return_payload = response['return_payload']
 print(return_payload)
 
-"""
+
 need to figure out more integration tests
 
 
