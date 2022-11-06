@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--=============== FAVICON ===============-->
+    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+
+    <!--=============== REMIXICON ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <title>Responsive Flashcard website</title>
+</head>
+
+<body>
+    <!--==================== HEADER ====================-->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#" class="nav__logo">
+                <img src="assets/img/logo-nav.png" alt="logo"> MCFLASHCARDY FACE :)
+            </a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="#home" class="nav__link active-link">Home</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#program" class="nav__link">Benefits</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#choose" class="nav__link">Choose Us</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#team" class="nav__link">Team</a>
+                    </li>
+
+                    <div class="nav__link">
+                        <a href="#footer" class="button nav__button">
+                            Log in
+                        </a>
+                    </div>
+
+                </ul>
+
+                <div class="nav__close" id="nav-close">
+                    <i class="ri-close-line"></i>
+                </div>
+            </div>
+
+            <!---Toggle button-->
+            <div class="nav__toggle" id="nav-toggle">
+                <i class="ri-menu-line"></i>
+            </div>
+        </nav>
+
+    </header>
+
+    <!--==================== MAIN ====================-->
+    <main class="main">
+        <!--==================== HOME ====================-->
+        <main class="home section" id="home">
+            <div class="home__container container grid">
+
+        <!--==================== PROGRAM ====================-->
+        <section class="program section" id="program">
+            <div class="container">
+                <div class="section__data">
+                    <h2 class="section__subtitle">Create Your Profile</h2>
+                    <div class="section__title">
+                        <h1 class="section__title-border">Start Your Learning</h1>
+                        <h1 class="section__title">Adventure!</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container" align="center">
+                <h3>Create a Profile!</h3>
+                <p>Username: <input id="username"></p>
+                <p>Password: <input id="password" type="password"></p>
+                <p>Verify Password: <input id="verify_password" type="password"></p>
+                <button onclick="create_new_user()">Create New User</button>
+            </div>
+
+
+        </section>
+            </div>
+
+
+
+
+        <!--==================== FOOTER ==============s======-->
+        <footer class="footer section" id="footer">
+            <div class="footer__container container grid">
+                <div>
+
+                    <a href="#" class="footer__logo">
+                        <img src="assets/img/logo-nav.png" alt=""> MCFLASHCARDY FACE
+                    </a>
+                    <p class="footer__description">
+                        Subscribe for updates below.
+                    </p>
+
+                    <form action="" class="footer__form" id="contact-form">
+                        <input type="email" name="user_email" placeholder="Your Email" class="footer__input"
+                            id="contact-user">
+                        <button type="submit" class="button">
+                            Subscribe
+                        </button>
+                    </form>
+
+                    <p class="footer__message" id="contact-message"></p>
+                </div>
+
+                <div class="footer__content">
+                    <div>
+                        <h3 class="footer__title">
+                            SERVICES
+                        </h3>
+                        <ul class="footer__links">
+                            <li>
+                                <a href="#" class="footer__link">Blah blah</a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer__link">Blah blah</a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer__link">Blah blah</a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer__link">Blah blah</a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="footer__title">
+                            Blah blah
+                        </h3>
+                        <ul class="footer__links">
+                            <li>
+                                <a href="#" class="footer__link">Blah blah</a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer__link">Blah blah</a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer__link">Blah blah</a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="footer__title">
+                            Blah blah
+                        </h3>
+                        <ul class="footer__links">
+                            <li>
+                                <a href="#" class="footer__link">Blah blah</a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer__link">Blah blah</a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer__link">Blah blah</a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer__link">Blah blah</a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="footer__group">
+                    <ul class="footer__social">
+                        <a href="https://www.facebook.com/" target="_blank" class="footer__social-link">
+                            <i class="ri-facebook-circle-fill"></i>
+                        </a>
+
+                        <a href="https://twitter.com/" target="_blank" class="footer__social-link">
+                            <i class="ri-twitter-fill"></i>
+                        </a>
+
+                        <a href="https://www.instagram.com/" target="_blank" class="footer__social-link">
+                            <i class="ri-instagram-line"></i>
+                        </a>
+                    </ul>
+
+                    <span class="footer__copy">
+                        &#169; Copyright SEA FERRETS. All rights reserved
+                    </span>
+                </div>
+            </div>
+
+        </footer>
+
+        <!--========== SCROLL UP ==========-->
+        <a href="#" class="scrollup" id="scroll-up">
+            <i class="ri-arrow-up-line"></i>
+        </a>
+
+
+
+        <!--=============== SCROLLREVEAL ===============-->
+        <script src="assets/js/scrollreveal.min.js"></script>
+
+        <!--=============== EMAIL JS ===============-->
+
+
+        <!--=============== MAIN JS ===============-->
+        <script src="assets/js/main.js"></script>
+
+        <!--=============== New User JS ===============-->
+        <script src="assets/js/new_user.js"></script>
+
+    </main>
+
+</body>
+
+</html>
