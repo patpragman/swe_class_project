@@ -142,14 +142,11 @@ print('testing update function')
 print(post_request.json())
 assert post_request.status_code == 200
 
-"""
+
 print('retrieving json')
 response = post_request.json()
 return_payload = response['return_payload']
 print(return_payload)
-
-
-need to figure out more integration tests
 
 
 print('testing cards to check update...')
@@ -158,5 +155,3 @@ for card in return_payload['objects']:
     if card['id'] == 2:
         assert card['front_text'] == updating_card.front_text
         assert card['back_text'] == updating_card.back_text
-
-"""
