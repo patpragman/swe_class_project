@@ -14,7 +14,7 @@ function create_new_user() {
         // if they match, try to make a new user!
 
         let user = {username: user_name_block.value,
-                    passsword: password_block.value}
+                    password: password_block.value}
 
         let data = {operation: "create_user",
                     payload:
