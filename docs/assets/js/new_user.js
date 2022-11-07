@@ -3,7 +3,7 @@ function create_new_user() {
     // username, password, and the verify password input
 
     const user_name_block = document.getElementById("username");
-    const password_block = document.getElementById("password")
+    const password_block = document.getElementById("password") // this should be encrypted
     const verify_block = document.getElementById("verify_password")
 
     // post to this URL to trigger the api
