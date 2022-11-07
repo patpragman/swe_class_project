@@ -28,7 +28,8 @@ function create_new_user() {
         fetch(url_endpoint, {
           method: "POST",
             mode: 'cors',
-          headers: {'Content-Type': 'application/json'
+          headers: {'Content-Type': 'application/json',
+              "Access-Control-Allow-Headers": "*"
           },
           body: JSON.stringify(data)
         }).then(res => {
