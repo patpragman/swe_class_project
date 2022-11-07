@@ -29,7 +29,7 @@ function create_new_user() {
           method: "POST",
             mode: 'cors',
           headers: {'Content-Type': 'application/json',
-              "Access-Control-Allow-Headers": "*"
+              "Access-Control-Allow-Origin": "*"
           },
           body: JSON.stringify(data)
         }).then(res => {
