@@ -5,6 +5,7 @@ import boto3
 from aws_config import REGION_NAME, STORAGE_BUCKET_NAME
 from operation_router import retrieve_operation
 
+
 def authenticate(payload: dict, operation) -> bool:
     """
     authenticate the payload and return true or false if the username and password match
@@ -46,6 +47,9 @@ def lambda_handler(event, context):
 
     response = {
         'statusCode': 500,
+        'headers': {
+            'Access-Control-Allow-Origin': '*'
+        },
         "body": {
             "success": False,
             "return_payload": {}
@@ -90,6 +94,9 @@ def lambda_handler(event, context):
 
         response = {"body": {
             "success": False,
+            'headers': {
+                'Access-Control-Allow-Origin': '*'
+            },
             "return_payload": {
                 "message": "unexplained server error"
             }
