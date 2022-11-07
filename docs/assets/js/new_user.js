@@ -27,7 +27,9 @@ function create_new_user() {
         // make a post request with the fetch method
         fetch(url_endpoint, {
           method: "POST",
-          headers: {'Content-Type': 'application/json'},
+            mode: 'cors',
+          headers: {'Content-Type': 'application/json'
+          },
           body: JSON.stringify(data)
         }).then(res => {
           console.log("Request complete! response:", res);

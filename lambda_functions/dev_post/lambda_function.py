@@ -61,7 +61,8 @@ def lambda_handler(event, context):
         # the output of the lambda function
 
         # try to build a response here
-
+        print(event)
+        
         event = json.loads(event['body'])
 
         operation = event['operation']
