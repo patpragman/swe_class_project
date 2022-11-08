@@ -28,7 +28,7 @@ function login() {
         mode: 'cors',
         headers: {
             'Content-Type': 'application/json',
-            "Access-Control-Allow-Origin": 'https://patpragman.github.io'
+            "Access-Control-Allow-Origin": 'https://patpragman.github.io/swe_class_project'
         },
         body: JSON.stringify(data)
     }).then(res => {
@@ -68,7 +68,7 @@ function createdNewUser() {
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
-                "Access-Control-Allow-Origin": 'https://patpragman.github.io'
+                "Access-Control-Allow-Origin": 'https://patpragman.github.io/swe_class_project'
             },
             body: JSON.stringify(data)
         }).then(res => {
