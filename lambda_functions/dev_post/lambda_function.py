@@ -48,7 +48,7 @@ def lambda_handler(event, context):
     response = {
         'statusCode': 500,
         'headers': {
-            'Access-Control-Allow-Origin': '*'
+            'Access-Control-Allow-Origin': 'https://patpragman.github.io'
         },
         "body": {
             "success": False,
@@ -94,13 +94,14 @@ def lambda_handler(event, context):
 
         response = {"body": {
             "success": False,
-            'headers': {
-                'Access-Control-Allow-Origin': '*'
-            },
             "return_payload": {
                 "message": "unexplained server error"
             }
-        }, 'statusCode': 500}
+        }, 'statusCode': 500,
+            'headers': {
+                'Access-Control-Allow-Origin': 'https://patpragman.github.io'
+            }
+        }
 
         response['body']['return_payload']['message'] = f"received the following error during operations: \n {str(err)}"
 
