@@ -53,7 +53,7 @@ def lambda_handler(event, context):
         headers = {
             "Access-Control-Allow-Headers": "*",
             "Access-Control-Allow-Methods": "POST, OPTIONS",
-            "Access-Control-Allow-Origin": "*"
+            # "Access-Control-Allow-Origin": "*"
         }
 
         response = {
@@ -67,7 +67,7 @@ def lambda_handler(event, context):
         response = {
             'statusCode': 500,
             'headers': {
-                "Access-Control-Allow-Origin": "*"
+                # "Access-Control-Allow-Origin": "*"
             },
             "body": {
                 "success": False,
@@ -118,7 +118,7 @@ def lambda_handler(event, context):
                 }
             }, 'statusCode': 500,
                 'headers': {
-                    "Access-Control-Allow-Origin": "*"
+                    # "Access-Control-Allow-Origin": "*"
                 }
             }
 
