@@ -44,7 +44,7 @@ def lambda_handler(event, context):
       - operation: one of the operations in the operations dict below
       - payload: a parameter to pass to the operation being performed
     '''
-
+    print(event)  # good lord the documentation is basically not non-existent...
     if event['requestContext']['httpMethod'].upper() == "OPTIONS":
         """
         handle cors stuff below, send the right headers back so the browser doesn't fucking freak out
