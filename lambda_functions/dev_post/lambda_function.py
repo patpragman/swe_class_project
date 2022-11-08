@@ -51,13 +51,9 @@ def lambda_handler(event, context):
         """
 
         headers = {
-            "AllowedHeaders": "*",
-            "AllowedMethods": [
-                "POST",
-                "OPTIONS"
-            ],
-            "AllowedOrigins": "https://patpragman.github.io/swe_class_project",
-            "ExposeHeaders": []
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            "Access-Control-Allow-Origin": "*"
         }
 
         response = {
@@ -71,7 +67,7 @@ def lambda_handler(event, context):
         response = {
             'statusCode': 500,
             'headers': {
-                'Access-Control-Allow-Origin': 'https://patpragman.github.io/swe_class_project'
+                "Access-Control-Allow-Origin": "*"
             },
             "body": {
                 "success": False,
@@ -122,7 +118,7 @@ def lambda_handler(event, context):
                 }
             }, 'statusCode': 500,
                 'headers': {
-                    'Access-Control-Allow-Origin': 'https://patpragman.github.io/swe_class_project'
+                    "Access-Control-Allow-Origin": "*"
                 }
             }
 
