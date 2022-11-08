@@ -45,64 +45,90 @@ def lambda_handler(event, context):
       - payload: a parameter to pass to the operation being performed
     '''
 
-    response = {
-        'statusCode': 500,
-        'headers': {
-            'Access-Control-Allow-Origin': 'https://patpragman.github.io'
-        },
-        "body": {
-            "success": False,
-            "return_payload": {}
-        },
-    }
 
-    try:
-        # we wrap all of this in a try/except block to catch any and all errors - no matter what we want to control
-        # the output of the lambda function
-
-        # try to build a response here
-        print(event)
-        event = json.loads(event['body'])
-
-        operation = event['operation']
-        payload = event.get('payload')
-        payload = encrypt_password(payload)
-
-        # first, authenticate the payload
-        if authenticate(payload, operation):
-            # check if this operation is supported, then run that operation
-            print("retrieving result function")
-            result_function = retrieve_operation(operation)
-            response['statusCode'] = 200
-
-            response['body'] = result_function(payload)
-            if not response['body']['success']:
-                # unrecognized api operation
-                response['statusCode'] = 400
-
-        else:
-            response['statusCode'] = 404
-            response['body']['return_payload']['message'] = 'unrecognized username or password'
-
-        return response
-    except Exception as err:
+    if event['httpMethod'].upper() == "OPTIONS":
         """
-        if any sort of error happened while doing this, let's send back a response that indicates that there was an
-        internal server error
+        handle cors stuff below, send the right headers back so the browser doesn't fucking freak out
         """
-        print(err)
 
-        response = {"body": {
-            "success": False,
-            "return_payload": {
-                "message": "unexplained server error"
+        headers = {
+                "AllowedHeaders": "*",
+                "AllowedMethods": [
+                    "POST",
+                    "OPTIONS"
+                ],
+                "AllowedOrigins": [
+                    "https://patpragman.github.io"
+                ],
+                "ExposeHeaders": []
             }
-        }, 'statusCode': 500,
-            'headers': {
-                'Access-Control-Allow-Origin': 'https://patpragman.github.io'
-            }
+
+        response = {
+            'statusCode': 200,
+            'headers': headers
         }
 
-        response['body']['return_payload']['message'] = f"received the following error during operations: \n {str(err)}"
-
         return response
+
+    else:
+        response = {
+            'statusCode': 500,
+            'headers': {
+                'Access-Control-Allow-Origin': 'https://patpragman.github.io'
+            },
+            "body": {
+                "success": False,
+                "return_payload": {}
+            },
+        }
+
+        try:
+            # we wrap all of this in a try/except block to catch any and all errors - no matter what we want to control
+            # the output of the lambda function
+
+            # try to build a response here
+            print(event)
+            event = json.loads(event['body'])
+
+            operation = event['operation']
+            payload = event.get('payload')
+            payload = encrypt_password(payload)
+
+            # first, authenticate the payload
+            if authenticate(payload, operation):
+                # check if this operation is supported, then run that operation
+                print("retrieving result function")
+                result_function = retrieve_operation(operation)
+                response['statusCode'] = 200
+
+                response['body'] = result_function(payload)
+                if not response['body']['success']:
+                    # unrecognized api operation
+                    response['statusCode'] = 400
+
+            else:
+                response['statusCode'] = 404
+                response['body']['return_payload']['message'] = 'unrecognized username or password'
+
+            return response
+        except Exception as err:
+            """
+            if any sort of error happened while doing this, let's send back a response that indicates that there was an
+            internal server error
+            """
+            print(err)
+
+            response = {"body": {
+                "success": False,
+                "return_payload": {
+                    "message": "unexplained server error"
+                }
+            }, 'statusCode': 500,
+                'headers': {
+                    'Access-Control-Allow-Origin': 'https://patpragman.github.io'
+                }
+            }
+
+            response['body']['return_payload']['message'] = f"received the following error during operations: \n {str(err)}"
+
+            return response
