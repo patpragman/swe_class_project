@@ -9,19 +9,32 @@ function setLoginMessage(element, type, message) {
     loginMessage.classList.add(`login__message--${type}`); //type is success or error
 }
 
-function setInputError(inputElement, message) {
-    inputElement.classList.add("login__input--error");
-    inputElement.parentElement.querySelector(".login__input-errorMsg").textContent = message;
-}
-
-function clearInputError(inputElement) {
-    inputElement.classList.remove("form__input--error");
-    inputElement.parentElement.querySelector(".form__input-error-message").textContent = "";
-}
 
 function login() {
     const usernameInput = document.getElementById("username")
     const passwordInput = document.getElementById("password")
+
+    let data = {
+        operation: "get_cards",
+        payload: {
+            username: usernameInput.value,
+            password: passwordInput.value,
+            object: ''
+        }
+    };
+
+    fetch(urlEndPoint, {
+        method: "POST",
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin": "*"
+        },
+        body: JSON.stringify(data)
+    }).then(res => {
+        console.log("Request complete! response:", res);
+    });
+
 
 }
 
@@ -39,25 +52,28 @@ function createdNewUser() {
 
 
         let data = {
-            operation: "create_user",
+            operation: "get_cards",
             payload:
             {
                 username: "no user",
                 password: "na",
                 object: user
             }
+
+
         };
 
-        /*  fetch(urlEndPoint, {
-              method: "POST",
-                mode: 'cors',
-              headers: {'Content-Type': 'application/json',
-                  "Access-Control-Allow-Origin": "*"
-              },
-              body: JSON.stringify(data)
-            }).then(res => {
-              console.log("Request complete! response:", res);
-            }); */
+        fetch(urlEndPoint, {
+            method: "POST",
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*"
+            },
+            body: JSON.stringify(data)
+        }).then(res => {
+            console.log("Request complete! response:", res);
+        });
 
         return true;
     } else {
@@ -86,10 +102,14 @@ document.addEventListener("DOMContentLoaded", () => {
     loginForm.addEventListener("submit", e => {
         e.preventDefault();
 
-        // Perform your AJAX/Fetch login
-        console.log(usernameInput.value, passwordInput.value)
 
-        setLoginMessage(loginForm, "error", "Invalid username/password combination");
+        if (login() == true) {
+            console.log(usernameInput.value, passwordInput.value)
+            setLoginMessage(createAccountForm, "success", "Account Created!")
+        }
+        else {
+            setLoginMessage(loginForm, "error", "Invalid username/password combination");
+        }
     });
 
     createAccountForm.addEventListener("submit", e => {
@@ -97,21 +117,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (createdNewUser() == false) {
             setLoginMessage(createAccountForm, "error", "Passwords do not match, Try again!")
 
+
         } else {
             setLoginMessage(createAccountForm, "success", "Account Created!")
         }
 
     })
 
-    document.querySelectorAll(".form__input").forEach(inputElement => {
-        inputElement.addEventListener("blur", e => {
-            if (e.target.id === "signupUsername" && e.target.value.length > 0 && e.target.value.length < 10) {
-                setInputError(inputElement, "Username must be at least 10 characters in length");
-            }
-        });
 
-        inputElement.addEventListener("input", e => {
-            clearInputError(inputElement);
-        });
-    });
 });
