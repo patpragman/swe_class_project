@@ -56,9 +56,7 @@ def lambda_handler(event, context):
                 "POST",
                 "OPTIONS"
             ],
-            "AllowedOrigins": [
-                "https://patpragman.github.io/swe_class_project"
-            ],
+            "AllowedOrigins": "https://patpragman.github.io/swe_class_project",
             "ExposeHeaders": []
         }
 
