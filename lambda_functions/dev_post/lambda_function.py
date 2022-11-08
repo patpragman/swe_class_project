@@ -45,23 +45,22 @@ def lambda_handler(event, context):
       - payload: a parameter to pass to the operation being performed
     '''
 
-
-    if event['httpMethod'].upper() == "OPTIONS":
+    if event['requestContext']['httpMethod'].upper() == "OPTIONS":
         """
         handle cors stuff below, send the right headers back so the browser doesn't fucking freak out
         """
 
         headers = {
-                "AllowedHeaders": "*",
-                "AllowedMethods": [
-                    "POST",
-                    "OPTIONS"
-                ],
-                "AllowedOrigins": [
-                    "https://patpragman.github.io"
-                ],
-                "ExposeHeaders": []
-            }
+            "AllowedHeaders": "*",
+            "AllowedMethods": [
+                "POST",
+                "OPTIONS"
+            ],
+            "AllowedOrigins": [
+                "https://patpragman.github.io"
+            ],
+            "ExposeHeaders": []
+        }
 
         response = {
             'statusCode': 200,
@@ -129,6 +128,7 @@ def lambda_handler(event, context):
                 }
             }
 
-            response['body']['return_payload']['message'] = f"received the following error during operations: \n {str(err)}"
+            response['body']['return_payload'][
+                'message'] = f"received the following error during operations: \n {str(err)}"
 
             return response
