@@ -52,7 +52,7 @@ function createdNewUser() {
 
 
         let data = {
-            operation: "get_cards",
+            operation: "create_user",
             payload:
             {
                 username: "no user",
