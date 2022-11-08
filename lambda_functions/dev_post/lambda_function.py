@@ -45,10 +45,9 @@ def lambda_handler(event, context):
       - payload: a parameter to pass to the operation being performed
     '''
     print(event)  # good lord the documentation is basically not non-existent...
-    if event['requestContext']['http']['method'].upper() == "OPTIONS":
-        """
-        handle cors stuff below, send the right headers back so the browser doesn't fucking freak out
-        """
+    """    if event['requestContext']['http']['method'].upper() == "OPTIONS":
+    #       handle cors stuff below, send the right headers back so the browser doesn't fucking freak out
+        
 
         headers = {
             "Access-Control-Allow-Headers": "*",
@@ -64,65 +63,69 @@ def lambda_handler(event, context):
         return response
 
     else:
-        response = {
-            'statusCode': 500,
+    
+        COMMENTED OUT FOR TESTING PURPOSES
+        pass"""
+
+    response = {
+        'statusCode': 500,
+        'headers': {
+            # "Access-Control-Allow-Origin": "*"
+        },
+        "body": {
+            "success": False,
+            "return_payload": {}
+        },
+    }
+
+    try:
+        # we wrap all of this in a try/except block to catch any and all errors - no matter what we want to control
+        # the output of the lambda function
+
+        # try to build a response here
+        print(event)
+        event = json.loads(event['body'])
+
+        operation = event['operation']
+        payload = event.get('payload')
+        payload = encrypt_password(payload)
+
+        # first, authenticate the payload
+        if authenticate(payload, operation):
+            # check if this operation is supported, then run that operation
+            print("retrieving result function")
+            result_function = retrieve_operation(operation)
+            response['statusCode'] = 200
+
+            response['body'] = result_function(payload)
+            if not response['body']['success']:
+                # unrecognized api operation
+                response['statusCode'] = 400
+
+        else:
+            response['statusCode'] = 404
+            response['body']['return_payload']['message'] = 'unrecognized username or password'
+
+        return response
+    except Exception as err:
+        """
+        if any sort of error happened while doing this, let's send back a response that indicates that there was an
+        internal server error
+        """
+        print(err)
+
+        response = {"body": {
+            "success": False,
+            "return_payload": {
+                "message": "unexplained server error"
+            }
+        }, 'statusCode': 500,
             'headers': {
                 # "Access-Control-Allow-Origin": "*"
-            },
-            "body": {
-                "success": False,
-                "return_payload": {}
-            },
+            }
         }
 
-        try:
-            # we wrap all of this in a try/except block to catch any and all errors - no matter what we want to control
-            # the output of the lambda function
+        response['body']['return_payload'][
+            'message'] = f"received the following error during operations: \n {str(err)}"
 
-            # try to build a response here
-            print(event)
-            event = json.loads(event['body'])
-
-            operation = event['operation']
-            payload = event.get('payload')
-            payload = encrypt_password(payload)
-
-            # first, authenticate the payload
-            if authenticate(payload, operation):
-                # check if this operation is supported, then run that operation
-                print("retrieving result function")
-                result_function = retrieve_operation(operation)
-                response['statusCode'] = 200
-
-                response['body'] = result_function(payload)
-                if not response['body']['success']:
-                    # unrecognized api operation
-                    response['statusCode'] = 400
-
-            else:
-                response['statusCode'] = 404
-                response['body']['return_payload']['message'] = 'unrecognized username or password'
-
-            return response
-        except Exception as err:
-            """
-            if any sort of error happened while doing this, let's send back a response that indicates that there was an
-            internal server error
-            """
-            print(err)
-
-            response = {"body": {
-                "success": False,
-                "return_payload": {
-                    "message": "unexplained server error"
-                }
-            }, 'statusCode': 500,
-                'headers': {
-                    # "Access-Control-Allow-Origin": "*"
-                }
-            }
-
-            response['body']['return_payload'][
-                'message'] = f"received the following error during operations: \n {str(err)}"
-
-            return response
+        return response
