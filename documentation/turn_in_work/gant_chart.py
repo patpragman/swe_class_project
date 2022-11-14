@@ -19,4 +19,7 @@ df = pd.DataFrame([
 fig = px.timeline(df, x_start="Start", x_end="Finish", y="Task")
 fig.update_yaxes(autorange="reversed") # otherwise tasks are listed from the bottom up
 
+with open("gant.html", "w") as write_file:
+    write_file.write(fig.to_html())
+
 pio.write_image(fig, "gant.png")
