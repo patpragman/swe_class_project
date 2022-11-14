@@ -5,6 +5,7 @@ import boto3
 from aws_config import REGION_NAME, STORAGE_BUCKET_NAME
 from operation_router import retrieve_operation
 
+
 def authenticate(payload: dict, operation) -> bool:
     """
     authenticate the payload and return true or false if the username and password match
@@ -43,9 +44,34 @@ def lambda_handler(event, context):
       - operation: one of the operations in the operations dict below
       - payload: a parameter to pass to the operation being performed
     '''
+    print(event)  # good lord the documentation is basically not non-existent...
+    """    if event['requestContext']['http']['method'].upper() == "OPTIONS":
+    #       handle cors stuff below, send the right headers back so the browser doesn't fucking freak out
+        
+
+        headers = {
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "POST, OPTIONS",
+            # "Access-Control-Allow-Origin": "*"
+        }
+
+        response = {
+            'statusCode': 200,
+            'headers': headers
+        }
+
+        return response
+
+    else:
+    
+        COMMENTED OUT FOR TESTING PURPOSES
+        pass"""
 
     response = {
         'statusCode': 500,
+        'headers': {
+            # "Access-Control-Allow-Origin": "*"
+        },
         "body": {
             "success": False,
             "return_payload": {}
@@ -57,7 +83,7 @@ def lambda_handler(event, context):
         # the output of the lambda function
 
         # try to build a response here
-
+        print(event)
         event = json.loads(event['body'])
 
         operation = event['operation']
@@ -93,8 +119,13 @@ def lambda_handler(event, context):
             "return_payload": {
                 "message": "unexplained server error"
             }
-        }, 'statusCode': 500}
+        }, 'statusCode': 500,
+            'headers': {
+                # "Access-Control-Allow-Origin": "*"
+            }
+        }
 
-        response['body']['return_payload']['message'] = f"received the following error during operations: \n {str(err)}"
+        response['body']['return_payload'][
+            'message'] = f"received the following error during operations: \n {str(err)}"
 
         return response
