@@ -24,6 +24,7 @@ Basic Layout of Deployment Pipeline:
         subgraph Automatic Deployment to Dev Environment
             E --> F[Package Code for Deployment to Development Environment]
             F --> G[Upload Code to AWS development environment]
+            G --> G_a[Automatic Code deployment with github pages]
         end
         
         subgraph Integration
@@ -38,7 +39,7 @@ Basic Layout of Deployment Pipeline:
             I -- Fail --> A
         end
         
-        G --> H
+        G_a --> H
         J -- Pass --> K
         J -- Fail --> A
         subgraph Deploy to Production
