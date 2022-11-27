@@ -36,7 +36,7 @@ function login() {
 
         const reponse = res.json();
         if (response['success']){
-            displayApplication(res)
+            displayApplication(response);
         }
     });
 
