@@ -71,7 +71,7 @@ function cardFromObject(o){
     // let's create a card
     let card_div = document.createElement("div");
     const id = o['id'];
-    card_div.className = "flashcard";
+    card_div.className = "content";
 
     let title = document.createElement("h3");
     title.innerText = "Flashcard!";
@@ -92,8 +92,21 @@ function cardFromObject(o){
 
 function displayApplication(return_payload){
     const login_window = document.getElementById("login_container");
+    login_window.className = "container";
     login_window.innerHTML = "";
 
+
+    // need to build some of the UI elements
+
+    // need a create flashcard button
+
+    // need a remove flashcard button
+
+    // need an update flashcard button
+
+
+
+    // load the flashcards
     for (const o of return_payload.objects){
         console.log(o);
         login_window.appendChild(cardFromObject(o));
