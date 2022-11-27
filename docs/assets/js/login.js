@@ -67,6 +67,9 @@ function cardFromObject(o){
     }
     */
 
+    console.log('testing:');
+    console.log(o);
+
     // let's create a card
     let card_div = document.createElement("div");
     const id = o['id'];
