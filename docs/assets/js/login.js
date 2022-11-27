@@ -32,11 +32,14 @@ function login() {
         },
         body: JSON.stringify(data)
     }).then(res => {
-        console.log("Request complete! response:", res.json());
+        const data = res.json();
+        console.log("Request complete! response:");
 
     }).then((data) => {
+        console.log(data);
+
         // process the json now...
-        if (data.json()['success']){
+        if (data['success']){
             displayApplication(data.json());
         }
     });
