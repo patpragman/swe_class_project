@@ -34,13 +34,14 @@ function login() {
     }).then(res => {
         const data = res.json();
         return data
-    }).then(
-        // now send the data along
+    }).then( data => {
+
         console.log("Request complete! response:");
         console.log(data);
         console.log(data['return_payload']);
-        if (data['success']{
-            displayApplication(data.return_payload);
+        if (data['success'){
+            displayApplication(data['return_payload']);
+        }
         }
     );
 
