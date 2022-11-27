@@ -36,8 +36,9 @@ function login() {
         console.log("Request complete! response:");
         console.log(data);
 
-        if (data['success']){
-            displayApplication(data);
+        console.log(data.value.return_payload);
+        if (data.value.success){
+            displayApplication(data.value.return_payload);
         }
     });
 
