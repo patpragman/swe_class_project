@@ -34,11 +34,10 @@ function login() {
     }).then(res => {
         const data = res.json();
         console.log("Request complete! response:");
-        console.log(data);
 
-        console.log(data.value.return_payload);
-        if (data.value.success){
-            displayApplication(data.value.return_payload);
+        console.log(data.return_payload);
+        if (data.success){
+            displayApplication(data.return_payload);
         }
     });
 
