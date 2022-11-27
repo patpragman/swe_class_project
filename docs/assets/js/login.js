@@ -71,7 +71,7 @@ function cardFromObject(o){
     // let's create a card
     let card_div = document.createElement("div");
     const id = o['id'];
-    card_div.className = "content";
+    card_div.className = "content section_data";
 
     let title = document.createElement("h3");
     title.innerText = "Flashcard!";
