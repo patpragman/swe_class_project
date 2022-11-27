@@ -37,7 +37,7 @@ function login() {
 
     }).then((data) => {
         console.log(data);
-
+        return data
         // process the json now...
         if (data['success']){
             displayApplication(data.json());
