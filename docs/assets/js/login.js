@@ -36,9 +36,6 @@ function login() {
         return data
     }).then( data => {
 
-        console.log("Request complete! response:");
-        console.log(data);
-        console.log(data['return_payload']);
         if (data['success']){
             displayApplication(data['return_payload']);
         }
@@ -92,11 +89,11 @@ function cardFromObject(o){
 }
 
 
-function displayApplication(res){
+function displayApplication(return_payload){
     const login_window = document.getElementById("login_container");
     login_window.innerHTML = "";
 
-    for (o in res.return_payload){
+    for (o in return_payload.objects){
         console.log(o);
         login_window.appendChild(cardFromObject(o));
 
