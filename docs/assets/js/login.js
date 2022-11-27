@@ -34,8 +34,7 @@ function login() {
     }).then(res => {
         console.log("Request complete! response:", res.json());
 
-        const reponse = res.json();
-        if (response['success']){
+        if (res.json()['success']){
             displayApplication(response);
         }
     });
