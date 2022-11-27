@@ -93,7 +93,7 @@ function displayApplication(res){
     login_window.innerHTML = "";
 
     for (o in res.return_payload){
-
+        console.log(o);
         login_window.appendChild(cardFromObject(o));
 
     }
