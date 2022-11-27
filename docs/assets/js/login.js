@@ -33,13 +33,16 @@ function login() {
         body: JSON.stringify(data)
     }).then(res => {
         const data = res.json();
+        return data
+    }).then(
+        // now send the data along
         console.log("Request complete! response:");
         console.log(data);
-        console.log(data.return_payload);
-        if (data.success){
+        console.log(data['return_payload']);
+        if (data['success'){
             displayApplication(data.return_payload);
         }
-    });
+    );
 
 
 }
