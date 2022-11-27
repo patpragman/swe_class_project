@@ -67,8 +67,6 @@ function cardFromObject(o){
     }
     */
 
-    console.log('testing:');
-    console.log(o);
 
     // let's create a card
     let card_div = document.createElement("div");
@@ -96,7 +94,7 @@ function displayApplication(return_payload){
     const login_window = document.getElementById("login_container");
     login_window.innerHTML = "";
 
-    for (o in return_payload.objects){
+    for (const o of return_payload.objects){
         console.log(o);
         login_window.appendChild(cardFromObject(o));
 
