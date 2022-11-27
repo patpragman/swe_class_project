@@ -1,3 +1,5 @@
 import qrcode
-img = qrcode.make('https://www.amazon.com/Phoenix-Project-DevOps-Helping-Business/dp/1942788290/ref=asc_df_1942788290/?tag=hyprod-20&linkCode=df0&hvadid=312065696873&hvpos=&hvnetw=g&hvrand=4640191243863547826&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9033845&hvtargid=pla-437264780533&psc=1&tag=&ref=&adgrpid=61316180399&hvpone=&hvptwo=&hvadid=312065696873&hvpos=&hvnetw=g&hvrand=4640191243863547826&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9033845&hvtargid=pla-437264780533')
-img.save("phoenix_project_book.png")
+
+url = "https://hackaday.com/2019/03/05/good-code-documents-itself-and-other-hilarious-jokes-you-shouldnt-tell-yourself/"
+img = qrcode.make(url)
+img.save("self_documenting_link.png")
