@@ -34,10 +34,10 @@ function login() {
     }).then(res => {
         const data = res.json();
         console.log("Request complete! response:");
+        return data
 
     }).then((data) => {
         console.log(data);
-        return data
         // process the json now...
         if (data['success']){
             displayApplication(data.json());
