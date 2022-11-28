@@ -31,6 +31,20 @@
             <div class="nav__toggle" id="nav-toggle">
                 <i class="ri-menu-line"></i>
             </div>
+
+                <ul class="nav__list">
+
+        <li class="nav__item">
+            <a href="#" class="nav__link">New Card</a>
+        </li>
+
+        <li class="nav__item">
+            <a href="#" class="nav__link">Logout</a>
+        </li>
+
+    </ul>
+
+
         </nav>
 
     </header>
@@ -52,9 +66,6 @@
                             <a href="#" class="nav__link active-link" onclick="adjust_index_and_display(-1);"><--</a>
                         </li>
 
-                        <li class="nav__item">
-                            <a href="#" class="nav__link">New Card</a>
-                        </li>
 
                         <li class="nav__item">
                             <a href="#" class="nav__link">Edit Card</a>
@@ -95,6 +106,7 @@
 <script src="assets/js/app.js">
     // start the app
     displayApplication();
+    adjust_index_and_display(1);
 </script>
 
 </html>
