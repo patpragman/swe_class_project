@@ -37,17 +37,37 @@ function cardFromObject(o){
     card_div.className = "content section_data";
 
     let title = document.createElement("h3");
-    title.innerText = "Flashcard!";
+    title.innerText = "Front!";
 
-    let front_text_tag = document.createElement('p');
+    let front_text_tag = document.createElement('h1');
     front_text_tag.className = "front_text";
     front_text_tag.innerText = o['front_text'];
+    front_text_tag.style.display = "block";
 
-    let back_text_tag = document.createElement('p');
+
+    let back_text_tag = document.createElement('h1');
+    back_text_tag.className = "back_text";
+    back_text_tag.innerText = o['back_text'];
+    back_text_tag.style.display = "none";
 
     card_div.appendChild(title);
     card_div.appendChild(front_text_tag);
     card_div.appendChild(back_text_tag);
+
+    // handle the clicking
+
+    card_div.onclick = function () {
+        // swap the variables like this [a, b] = [b, a];
+        [front_text_tag.style.display, back_text_tag.style.display] = [back_text_tag.style.display, front_text_tag.style.display];
+
+        // swap the card title text
+        if (title.innerText == "Front!") {
+            title.innerText = "Back!";
+        } else {
+            title.innerText = "Front!";
+        }
+
+    };
 
     return card_div
 }
