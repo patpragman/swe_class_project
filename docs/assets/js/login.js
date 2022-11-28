@@ -94,6 +94,10 @@ function displayApplication(return_payload){
 
 
     window.location.href = "app.html";
+    console.log('testing:');
+    console.log(return_payload);
+
+
     const app_window = document.getElementById("application_div");
     // app_window.className = "container";
     app_window.innerHTML = "";
