@@ -91,7 +91,9 @@ function cardFromObject(o){
 
 
 function displayApplication(return_payload){
-    document.open("app.html");
+
+
+    window.location.href = "app.html";
     const app_window = document.getElementById("application_div");
     // app_window.className = "container";
     app_window.innerHTML = "";
