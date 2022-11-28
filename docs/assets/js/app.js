@@ -72,7 +72,7 @@ function displayApplication(){
     // load the flashcards
     for (const o of return_payload.objects){
         console.log(o);
-        login_window.appendChild(cardFromObject(o));
+        app_window.appendChild(cardFromObject(o));
 
     }
 }
