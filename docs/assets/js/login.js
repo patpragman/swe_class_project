@@ -91,9 +91,10 @@ function cardFromObject(o){
 
 
 function displayApplication(return_payload){
-    const login_window = document.getElementById("login_container");
-    login_window.className = "container";
-    login_window.innerHTML = "";
+    document.open("app.html");
+    const app_window = document.getElementById("application_div");
+    // app_window.className = "container";
+    app_window.innerHTML = "";
 
 
     // need to build some of the UI elements
