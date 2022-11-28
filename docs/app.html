@@ -42,13 +42,15 @@
         <section class="home section" id="home">
             <div class="home__container container center" >
                 <div id="application_div" class="container">
+                    <div id="current_card" class="container">
 
+                    </div>
                 </div>
 
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
                         <li class="nav__item">
-                            <a href="#" class="nav__link active-link"><--</a>
+                            <a href="#" class="nav__link active-link" onclick="adjust_index_and_display(-1);"><--</a>
                         </li>
 
                         <li class="nav__item">
@@ -59,7 +61,7 @@
                             <a href="#" class="nav__link">Edit Card</a>
                         </li>
                         <li class="nav__item">
-                            <a href="#" class="nav__link">--></a>
+                            <a href="#" class="nav__link" onclick="adjust_index_and_display(1);>--></a>
                         </li>
                     </ul>
 

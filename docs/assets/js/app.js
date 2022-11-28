@@ -1,5 +1,15 @@
-function cardFromObject(o){
+// retrieve thed global variables we'll work with while the app is running
+let username = window.localStorage.getItem("username");
+let password = window.localStorage.getItem("password");
+let card_list = JSON.parse(window.localStorage.getItem("return_payload")).objects;
+let card_index = 0;
 
+// stuff from the DOM we need
+const app_window = document.getElementById("application_div");
+const current_card_div = document.getElementById("current_card");
+
+
+function cardFromObject(o){
     /*
     Example flashcard object!
 
@@ -42,37 +52,22 @@ function cardFromObject(o){
     return card_div
 }
 
+function adjust_index_and_display(by){
+    // adjust the card index variable we're using to display cards
+    card_index = card_index + by;
+
+    // logic so we don't try to access an item that's out of range
+    if (card_index < 0) {
+        card_index = card_list.length - 1
+    } else if (card_index >= card_list.length){
+        card_index = 0;
+    }
+
+    displayApplication();
+}
 
 function displayApplication(){
-
-    // retrieve the
-    let username = window.localStorage.getItem("username");
-    let password = window.localStorage.getItem("password");
-    let return_payload = JSON.parse(window.localStorage.getItem("return_payload"));
-
-    console.log('testing:');
-
-
-
-    const app_window = document.getElementById("application_div");
-    // app_window.className = "container";
-    app_window.innerHTML = "";
-
-
-    // need to build some of the UI elements
-
-    // need a create flashcard button
-
-    // need a remove flashcard button
-
-    // need an update flashcard button
-
-
-
-    // load the flashcards
-    for (const o of return_payload.objects){
-        console.log(o);
-        app_window.appendChild(cardFromObject(o));
-
-    }
+    let current_card_object = card_list[card_index];
+    current_card_div.innerHTML = "";
+    current_card_div.appendChild(cardFromObject(current_card_object))
 }
