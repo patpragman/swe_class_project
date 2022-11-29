@@ -29,7 +29,7 @@ Basic Layout of Deployment Pipeline:
         
         subgraph Integration
             H{Perform Integration Tests}
-            I{Perform User Testing}
+            I{Perform User Testing / AB Testing / Separate Pipeline}
             J{Human Approval}
             
             H -- Pass --> I

@@ -1,4 +1,5 @@
 import qrcode
-img = qrcode.make('https://github.com/patpragman/swe_class_project/blob/master/documentation/systems.md')
-type(img)  # qrcode.image.pil.PilImage
-img.save("systems_qr_link.png")
+
+url = "https://hackaday.com/2019/03/05/good-code-documents-itself-and-other-hilarious-jokes-you-shouldnt-tell-yourself/"
+img = qrcode.make(url)
+img.save("self_documenting_link.png")

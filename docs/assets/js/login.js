@@ -32,9 +32,30 @@ function login() {
         },
         body: JSON.stringify(data)
     }).then(res => {
-        console.log("Request complete! response:", res);
-    });
+        const data = res.json();
+        return data
+    }).then( data => {
 
+        if (data['success']){
+            // if it was successful, run the function to launch the app
+            store_and_load_app(data['return_payload'], usernameInput.value, passwordInput.value);
+        }
+        }
+    );
+
+
+}
+
+
+
+function store_and_load_app(return_payload, username, password){
+
+    // store the login login info and the cards and open the html that contains the app
+
+    window.localStorage.setItem("username", username);
+    window.localStorage.setItem("password", password);
+    window.localStorage.setItem("return_payload", JSON.stringify(return_payload));
+    window.location.href = "app.html";
 
 }
 

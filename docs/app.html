@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--=============== App JS ===============-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--=============== FAVICON ===============-->
+    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+
+    <!--=============== REMIXICON ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <title>Flascard Viewer</title>
+</head>
+
+<body>
+    <!--==================== HEADER ====================-->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#" class="nav__logo">
+                <img src="assets/img/logo-nav.png" alt="logo"> MCFLASHCARDY FACE :)
+            </a>
+
+            <!---Toggle button-->
+            <div class="nav__toggle" id="nav-toggle">
+                <i class="ri-menu-line"></i>
+            </div>
+
+                <ul class="nav__list">
+
+        <li class="nav__item">
+            <a href="#" class="nav__link">New Card</a>
+        </li>
+
+        <li class="nav__item">
+            <a href="#" class="nav__link">Logout</a>
+        </li>
+
+    </ul>
+
+
+        </nav>
+
+    </header>
+
+    <!--==================== MAIN ====================-->
+    <main class="main">
+        <!--==================== HOME ====================-->
+        <section class="home section" id="home">
+            <div class="home__container container center" >
+                <div id="application_div" class="container">
+                    <div id="current_card" class="container">
+
+                    </div>
+                </div>
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="#" class="nav__link active-link" onclick="adjust_index_and_display(-1);"><--</a>
+                        </li>
+
+
+                        <li class="nav__item">
+                            <a href="#" class="nav__link">Edit Card</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#" class="nav__link" onclick="adjust_index_and_display(1);">--></a>
+                        </li>
+                    </ul>
+
+                    <div class="nav__close" id="nav-close">
+                        <i class="ri-close-line"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--==================== PROGRAM ====================-->
+        <section class="program section" id="program">
+
+
+
+        </section>
+
+        <!--========== SCROLL UP ==========-->
+        <a href="#" class="scrollup" id="scroll-up">
+            <i class="ri-arrow-up-line"></i>
+        </a>
+
+
+        <!--=============== SCROLLREVEAL ===============-->
+        <script src="assets/js/scrollreveal.min.js"></script>
+
+        <!--=============== EMAIL JS ===============-->
+
+    </main>
+</body>
+
+<script src="assets/js/app.js">
+    // start the app
+    displayApplication();
+    adjust_index_and_display(1);
+</script>
+
+</html>
