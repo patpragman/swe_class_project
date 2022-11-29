@@ -34,13 +34,13 @@ function login() {
     }).then(res => {
         const data = res.json();
         return data
-    }).then( data => {
+    }).then(data => {
 
-        if (data['success']){
+        if (data['success']) {
             // if it was successful, run the function to launch the app
             store_and_load_app(data['return_payload'], usernameInput.value, passwordInput.value);
         }
-        }
+    }
     );
 
 
@@ -48,14 +48,14 @@ function login() {
 
 
 
-function store_and_load_app(return_payload, username, password){
+function store_and_load_app(return_payload, username, password) {
 
     // store the login login info and the cards and open the html that contains the app
 
-    window.localStorage.setItem("username", username);
-    window.localStorage.setItem("password", password);
-    window.localStorage.setItem("return_payload", JSON.stringify(return_payload));
-    window.location.href = "app.html";
+    window.sessionStorage.setItem("username", username);
+    window.sessionStorage.setItem("password", password);
+    window.sessionStorage.setItem("return_payload", JSON.stringify(return_payload));
+    window.location.href = "user.html";
 
 }
 

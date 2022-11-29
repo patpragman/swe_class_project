@@ -427,6 +427,73 @@ img {
   font-size: 0.85rem
 }
 
+/*=============== Flash Card===============*/
+.card_box {}
+
+.current_card {
+  position: relative;
+  height: 200px;
+  width: 400px;
+  text-align: center;
+  background-color: var(--first-color-dark);
+  font: var(--second-font);
+  font-weight: bold;
+  box-sizing: border-box;
+  padding: 16px;
+  border: 1px solid #333;
+  border-radius: 10px;
+  box-shadow: 4px 4px 2.5px rgb(59, 54, 70);
+  resize: none;
+  cursor: pointer;
+}
+
+
+.card_nav_button {
+  height: 75px;
+  width: 70px;
+  background-color: var(--first-color);
+  padding: 6px;
+  border: 2px solid var(--first-color-light);
+  color: var(--title-color-black);
+  font-weight: var(--font-bold);
+  cursor: pointer;
+  transition: background .3s;
+}
+
+/*===========All Cards+++++*/
+.all_cards_container {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+  padding: 24px;
+  gap: 24px;
+  top: 10%
+}
+
+.card {
+  height: 200px;
+  font: var(--second-font);
+  box-sizing: border-box;
+  padding: 16px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.15);
+  resize: none;
+}
+
+.add-card {
+  height: 200px;
+  border: none;
+  outline: none;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  font-size: 120px;
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+
 
 /*=============== BUTTON ===============*/
 .button {
