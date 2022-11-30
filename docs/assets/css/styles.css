@@ -10,7 +10,7 @@
   --first-color: hsl(52, 100%, 76%);
   --first-color-light: hsl(52, 100%, 60%);
   --first-color-alt: hsl(52, 91%, 59%);
-  --first-color-dark: hsl(179, 44%, 41%);
+  --first-color-dark: hsl(178, 41%, 34%);
   --first-color-gray: hsl(79, 6%, 64%);
   --title-color: hsl(346, 0%, 90%);
   --title-color-black: hsl(180, 4%, 12%);
@@ -44,7 +44,7 @@
 /* Responsive typography */
 @media screen and (min-width: 1024px) {
   :root {
-    --biggest-font-size: 6rem;
+    --biggest-font-size: 4rem;
     --bigger-font-size: 3.5rem;
     --big-font-size: 2.75rem;
     --h1-font-size: 2.25rem;
@@ -339,7 +339,7 @@ img {
 }
 
 #login__right__text {
-  width: calc(100% - 800px);
+  width: calc(100% - 600px);
   float: left;
 
 }
@@ -351,14 +351,14 @@ img {
   margin: 0 auto;
   border: 1px solid #333;
   box-shadow: 4px 4px 2.5px rgb(59, 54, 70);
-  padding: 2em;
+  padding: 2rem;
   border-radius: 4px;
 
 }
 
 .login__title {
   font-variant: small-caps;
-  font-size: 75px;
+  font-size: 30px;
   -webkit-text-stroke: 1px var(--title-color);
   color: transparent;
   letter-spacing: 2px;
@@ -393,8 +393,12 @@ img {
   border: none;
   outline: none;
   cursor: pointer;
-  background: var(--first-color-alt);
+  background: var(--first-color-light);
   margin-bottom: 0.75rem;
+}
+
+.login__button:hover {
+  background-color: var(--first-color);
 }
 
 .login--hidden {
@@ -402,11 +406,15 @@ img {
 }
 
 .login__link {
-  padding-top: 3rem;
+  padding-top: 0.5rem;
   color: black;
   text-decoration: none;
   cursor: pointer;
   text-align: center;
+}
+
+.login__link:hover {
+  color: var(--first-color);
 }
 
 .login__message--success {
@@ -427,9 +435,8 @@ img {
   font-size: 0.85rem
 }
 
-/*=============== Flash Card===============*/
-.card_box {}
 
+/*=============== Flash Card===============*/
 .current_card {
   position: relative;
   height: 200px;
@@ -460,7 +467,61 @@ img {
   transition: background .3s;
 }
 
-/*===========All Cards+++++*/
+#previous_card {
+  position: relative;
+  right: 240px;
+  top: 150px;
+}
+
+#next_card {
+  position: relative;
+  left: 240px;
+  top: -125px;
+}
+
+.card_nav_button:hover {
+  background-color: var(--first-color-alt)
+}
+
+
+#add_card {
+  position: relative;
+  right: 20px;
+  display: inline-block;
+  background-color: var(--title-color);
+  width: 200px;
+  border: 3px solid var(--first-color-dark);
+  color: var(--title-color-black);
+  font-weight: var(--font-bold);
+  cursor: pointer;
+  transition: background .3s;
+  border-radius: 30px;
+}
+
+#edit_card {
+  position: relative;
+  left: 20px;
+  display: inline-block;
+  background-color: var(--title-color);
+  width: 200px;
+  border: 3px solid var(--first-color-dark);
+  color: var(--title-color-black);
+  font-weight: var(--font-bold);
+  cursor: pointer;
+  transition: background .3s;
+  border-radius: 30px;
+}
+
+#add_card:hover {
+  background-color: var(--first-color-alt)
+}
+
+#edit_card:hover {
+  background-color: var(--first-color-alt)
+}
+
+
+/*=============All Cards================*/
 .all_cards_container {
   position: relative;
   display: grid;
@@ -1048,7 +1109,6 @@ img {
 }
 
 
-
 /* For large devices */
 @media screen and (min-width: 1023px) {
   .nav {
@@ -1270,7 +1330,4 @@ img {
   .scrollup {
     right: 3rem;
   }
-
-
-
 }
