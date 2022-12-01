@@ -81,7 +81,7 @@ async function createdNewUser() {
 
 
         let data = {
-            operation: "create_user",
+            operation: "user",
             payload:
             {
                 username: "no user",
