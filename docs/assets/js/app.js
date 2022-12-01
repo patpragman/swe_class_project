@@ -29,6 +29,7 @@ next_button.addEventListener("click", function () {
     } else {
         window.alert("Congrats. You've reviewed all your cards.")
         window.location.href = "user.html";
+        //could change it to pop up window
 
     }
 
