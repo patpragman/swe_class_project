@@ -131,13 +131,14 @@ function update_card() {
         current_card_object["back_text"] = answer_input_box.value
         console.log(current_card_object["front_text"], current_card_object["back_text"])
 
+
         let data = {
             operation: "update_card",
             payload: {
                 username: username,
                 password: password,
                 id: current_card_object["id"],
-                object: current_card_object
+                object: JSON.stringify(current_card_object)
             }
         };
 

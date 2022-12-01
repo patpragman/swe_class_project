@@ -14,7 +14,10 @@ def update_card_by_id(payload: dict) -> dict:
     updated card_list"""
     print('payload:')
     print(payload)
-    updated_card = json.loads(payload['object'])
+    if isinstance(payload['object'], dict):
+        updated_card = payload['object']
+    else:
+        updated_card = json.loads(payload['object'])
     print(updated_card)
 
     card_list = get_all_cards_by_user_as_list(username)
