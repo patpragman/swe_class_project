@@ -16,7 +16,7 @@ function create_new_user() {
         let user = {username: user_name_block.value,
                     password: password_block.value}
 
-        let data = {operation: "create_user",
+        let data = {operation: "user",
                     payload:
                         {username: "no user",
                         password: "na",

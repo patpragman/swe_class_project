@@ -37,7 +37,7 @@ test_user = User(
     password="pass_test"
 )
 obj = test_user.dict()
-test_user_json = {"operation": "create_user",
+test_user_json = {"operation": "user",
                   "payload":
                       {"username": "test user",
                        "password": "Test",
