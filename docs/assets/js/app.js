@@ -1,53 +1,46 @@
+const urlEndPoint = "https://c5j7g4oypbub6kqvkbdpmvhhra0njfgr.lambda-url.us-west-2.on.aws/"
+
 // retrieve thed global variables we'll work with while the app is running
 let username = window.sessionStorage.getItem("username");
 let password = window.sessionStorage.getItem("password");
 let card_list = JSON.parse(window.sessionStorage.getItem("return_payload")).objects;
 let card_id = window.sessionStorage.getItem("current_card");
-let viewed = []
+let viewed = 0 //num of seen cards
 let current_card_object = ""
 
 // stuff from the DOM we need
 const app_window = document.getElementById("application_div");
+const app_buttons = document.getElementById("app_buttons")
 const new_card_button = app_window.querySelector("#add_card")
 const prev_button = app_window.querySelector("#previous_card")
 const next_button = app_window.querySelector("#next_card")
-const edit_button = document.getElementById("#edit_card")
+const edit_button = app_buttons.querySelector("#edit_card")
 
-display_specific_card(card_id)
+card_list = shuffleCards(card_list)
+display_specific_card()
 
-//button behavior
-//new_card_button.addEventListener("click", () => add_card)
-prev_button.addEventListener("click", function () {
-    i = viewed.indexOf(current_card_object["id"]) - 1
-    display_specific_card(viewed.at(i))
-})
+//shuffle the cards
+function shuffleCards(arr) {
+    // set the current object to be card with given id
+    current_card_object = card_list.filter((card_obj) => card_obj.id == card_id)[0]
 
-next_button.addEventListener("click", function () {
-    if (card_list.length > 0) {
-        i = Math.floor(Math.random() * card_list.length)
-        display_specific_card(card_list[i]["id"])
-    } else {
-        window.alert("Congrats. You've reviewed all your cards.")
-        window.location.href = "user.html";
+    // remove that card from the deck and shuffle deck
+    const i = arr.indexOf(current_card_object)
+    const x = arr.splice(i, 1)
+    arr.sort(() => Math.random() - 0.5)
 
-    }
+    // add the current card back in at the top of the deck
+    arr.push(current_card_object)
 
-
-})
-
-edit_button.addEventListener("click", update_card)
+    return arr
+}
 
 //display
-function display_specific_card(id) {
-    //add to viewed cards
-    current_card_object = card_list.filter((card_obj) => card_obj.id == id)[0]
-    viewed.push(current_card_object["id"])
+function display_specific_card() {
+    // display the card at the top of the deck
+    current_card_object = card_list[card_list.length - 1]
 
-    //remove from unseen cards
-    card_list = card_list.filter(card_obj => card_obj !== current_card_object)
-
-
-
+    // create the html for a new card
     let old_object = prev_button.nextElementSibling
     current_elem = create_card_element(current_card_object)
     if (old_object != next_button) {
@@ -55,7 +48,6 @@ function display_specific_card(id) {
     } else {
         app_window.insertBefore(current_elem, next_button)
     }
-
 }
 
 //create the flashcard
@@ -108,20 +100,6 @@ Example flashcard object!
 }
 */
 
-function adjust_index_and_display(a) {
-    // adjust the card index variable we're using to display cards
-    card_id = card_id + a
-
-    // logic so we don't try to access an item that's out of range
-    if (card_id < 0) {
-        card_id = card_list.length - 1
-    } else if (card_id >= card_list.length) {
-        card_id = 0;
-    }
-
-    display_specific_card()
-}
-
 // NOT FINISHED, STILL  NEED TO GET THE INPUT FROM TEXT BOXES
 function update_card() {
     // get the q/a text
@@ -135,25 +113,97 @@ function update_card() {
     //add input boxes under q/a text
     const answer_input_box = document.createElement("input")
     answer_input_box.id = "answer"
+    answer_input_box.placeholder = "New Answer"
     const question_input_box = document.createElement("input")
     question_input_box.id = "question"
+    question_input_box.placeholder = "New Question"
+    const confirmation_button = document.createElement("button")
+    confirmation_button.textContent = "Ok"
+
 
     ans.after(answer_input_box)
     qst.after(question_input_box)
+    answer_input_box.after(confirmation_button)
 
-    // update the current object text
-    current_card_object["front_text"] = question_input_box.value
-    current_card_object["back_text"] = answer_input_box.value
+    confirmation_button.addEventListener("click", () => {
+        // update the current object text
+        current_card_object["front_text"] = question_input_box.value
+        current_card_object["back_text"] = answer_input_box.value
+        console.log(current_card_object["front_text"], current_card_object["back_text"])
 
-    let data = {
-        operation: "update_card",
-        payload: {
-            username: username,
-            id: card_id,
-            object: current_card_object
-        }
-    }
+        let data = {
+            operation: "update_card",
+            payload: {
+                username: username,
+                password: password,
+                id: current_card_object["id"],
+                object: current_card_object
+            }
+        };
 
-    console.log(data)
+        fetch(urlEndPoint, {
+            method: "POST",
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                //"Access-Control-Allow-Origin": 'https://patpragman.github.io/swe_class_project'
+            },
+            body: JSON.stringify(data)
+        }).then(res => {
+            const data = res.json();
+            return data
+        }).then(data => {
+            if (data["sucess"]) {
+                window.alert("Card Updated")
+            }
+        });
+
+
+        display_specific_card()
+
+
+    })
+}
+
+function send_out(data) {
+
+
 
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    //button behavior
+    //new_card_button.addEventListener("click", () => add_card)
+    prev_button.addEventListener("click", function () {
+        if (viewed == 0) {
+            window.alert("This is the first viewed card today")
+        } else {
+            // remove the card on bottom of deck and move to the top
+            let p_card = card_list.shift()
+            card_list.push(p_card)
+            display_specific_card()
+            viewed = viewed - 1
+        }
+
+    })
+
+    //displays a random unseen card or sends alert
+    next_button.addEventListener("click", function () {
+        if (viewed == card_list.length) {
+            window.alert("Congrats. You've reviewed all of your cards.")
+        } else {
+            // move the current card to the bottom of the deck
+            card_list.pop()
+            card_list.unshift(current_card_object)
+            display_specific_card()
+            viewed = viewed + 1
+        }
+
+
+    })
+
+    edit_button.addEventListener("click", update_card)
+
+
+
+})
