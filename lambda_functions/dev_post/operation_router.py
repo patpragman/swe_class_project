@@ -22,7 +22,7 @@ def retrieve_operation(operation: str):
         return lambda payload: get_all_user_cards(payload)
     elif operation == "create_flashcard":
         return lambda payload: create_flashcard(payload)  # return the create flashcard function
-    elif operation == "create_user":
+    elif operation == "user":
         return lambda payload: create_user(payload)
     elif operation == "update_card":
         return lambda payload: update_card_by_id(payload)

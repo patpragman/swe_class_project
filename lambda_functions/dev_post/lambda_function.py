@@ -15,7 +15,8 @@ def authenticate(payload: dict, operation) -> bool:
     operation = operation
 
     # we can always create a new user, go ahead and allow the script to work from there
-    if operation == "create_user":
+    print(username, password, payload, operation)
+    if operation == "user":
         return True
     else:
         # if you're doing anything else, verify credentials before continuing
