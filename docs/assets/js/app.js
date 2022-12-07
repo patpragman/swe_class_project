@@ -212,6 +212,7 @@ function  add_card(){
 
             card_list.push(new_card);
             display_specific_card();
+            update_card();
         });
 
 }
