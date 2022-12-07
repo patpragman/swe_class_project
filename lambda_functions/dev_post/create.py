@@ -43,6 +43,8 @@ def validate_new_user(payload: dict) -> dict:
         print(user)
         if payload['username'] == user['username']:
             raise Exception("User already exists")
+
+    print('new user is not a duplicate')
     return encrypt_password(payload)
 
 def validate_flashcard(obj: dict) -> dict:
@@ -90,7 +92,9 @@ def create(payload: dict, operation: str) -> dict:
         else:
             obj = payload['object']
         print('validating object')
+        print(obj)
         obj = VALIDATION_MAPPING[operation](obj)  # validation of objects happens here
+        print('Object Vaidated')
         obj['id'] = get_max_id(operation) + 1  # get the maximum id of a card, add 1 to that.
 
         object_list.append(obj)
