@@ -11,7 +11,7 @@ let current_card_object = ""
 // stuff from the DOM we need
 const app_window = document.getElementById("application_div");
 const app_buttons = document.getElementById("app_buttons")
-const add_card_button = app_window.querySelector("#add_card")
+const add_card_button = app_buttons.querySelector("#add_card")
 const prev_button = app_window.querySelector("#previous_card")
 const next_button = app_window.querySelector("#next_card")
 const edit_button = app_buttons.querySelector("#edit_card")
