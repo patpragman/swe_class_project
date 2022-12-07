@@ -97,7 +97,7 @@ def create(payload: dict, operation: str) -> dict:
         obj = VALIDATION_MAPPING[operation](obj)  # validation of objects happens here
         print('Object Vaidated')
         obj['id'] = get_max_id(operation) + 1  # get the maximum id of a card, add 1 to that.
-
+        print(obj)
 
         object_list.append(obj)
 

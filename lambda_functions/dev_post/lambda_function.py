@@ -76,11 +76,14 @@ def lambda_handler(event, context):
             print("retrieving result function")
             result_function = retrieve_operation(operation)
             response['statusCode'] = 200
+            print('got result function')
 
             response['body'] = result_function(payload)
             if not response['body']['success']:
                 # unrecognized api operation
                 response['statusCode'] = 400
+
+            print(response)
 
         else:
             response['statusCode'] = 404
