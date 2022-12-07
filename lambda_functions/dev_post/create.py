@@ -38,7 +38,9 @@ def encrypt_password(payload: dict) -> dict:
 
 def validate_new_user(payload: dict) -> dict:
 
+    print('validating users')
     for user in get_all_users_as_list():
+        print(user)
         if payload['username'] == user['username']:
             raise Exception("User already exists")
     return encrypt_password(payload)
@@ -46,7 +48,6 @@ def validate_new_user(payload: dict) -> dict:
 def validate_flashcard(obj: dict) -> dict:
     # we need to make sure the data coming at least has the keys in the data model
     try:
-
         # not implemented
         return obj
     except Exception as err:
