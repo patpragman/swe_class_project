@@ -10,7 +10,10 @@ get_cards().forEach((card) => {
     })
 });
 
-add_card_button.addEventListener("click", () => addCard());
+add_card_button.addEventListener("click", () => {
+    get_cards();
+    add_card();
+});
 
 
 //get array of cards stored in local storage
