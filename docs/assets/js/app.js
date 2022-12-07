@@ -184,14 +184,37 @@ function  add_card(){
     "create_date": "not implemented",
     "last_study_date": "not implemented",
     "next_study_due": "not implemented"
-
     };
 
-    // create a new card and push it onto the cardlist array
-    card_list.push(new_card);
 
-    display_specific_card(); // now let's bring that new card up where you can edit it!
+    let data = {
+            operation: "create_flashcard",
+            payload: {
+                username: username,
+                password: password,
+                object: JSON.stringify(new_card)
+            }
+    };
 
+
+    fetch(urlEndPoint, {
+            method: "POST",
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                //"Access-Control-Allow-Origin": 'https://patpragman.github.io/swe_class_project'
+            },
+            body: JSON.stringify(data)
+        }).then(res => {
+            const data = res.json();
+            return data
+        }).then(data => {
+            let id = data['id'];
+            new_card['id'] = id;
+
+            card_list.push(new_card);
+            display_specific_card();
+        });
 
 }
 

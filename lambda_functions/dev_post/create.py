@@ -103,7 +103,8 @@ def create(payload: dict, operation: str) -> dict:
 
             return {"success": True,
                     "return_payload": {
-                        "message": f"{operation} saved!"
+                        "message": f"{operation} saved!",
+                        "id": obj['id']
                     }
                     }
 
