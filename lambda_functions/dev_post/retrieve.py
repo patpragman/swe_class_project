@@ -10,6 +10,7 @@ def get_max_id(operation: str) -> int:
         users = get_all_users_as_list()
         print(users)
         if users:
+            print('largest user id', max(int(user['id']) for user in users))
             return max(int(user['id']) for user in users)
         else:
             return 0
