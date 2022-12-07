@@ -154,9 +154,7 @@ function update_card() {
             const data = res.json();
             return data
         }).then(data => {
-            if (data["sucess"]) {
-                window.alert("Card Updated")
-            }
+            window.sessionStorage.setItem('return_payload', JSON.stringify(card_list));
         });
 
 
