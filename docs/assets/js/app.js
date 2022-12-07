@@ -172,6 +172,31 @@ function send_out(data) {
 
 }
 
+
+function  add_card(){
+
+    let new_card = {
+    "owner": username,
+    "folder": "test / not import",
+    "front_text" : "new card front!",
+    "back_text": "new card back",
+    "streak": 0,
+    "create_date": "not implemented",
+    "last_study_date": "not implemented",
+    "next_study_due": "not implemented"
+
+    };
+
+    // create a new card and push it onto the cardlist array
+    card_list.push(new_card);
+
+    display_specific_card(); // now let's bring that new card up where you can edit it!
+
+
+}
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
     //button behavior
     //new_card_button.addEventListener("click", () => add_card)
@@ -205,6 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     edit_button.addEventListener("click", update_card)
 
+    add_card_button.addEventListener("click", add_card)
 
 
 })
