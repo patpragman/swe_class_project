@@ -72,6 +72,7 @@ def create(payload: dict, operation: str) -> dict:
     try:
         response = s3_client.Object(STORAGE_BUCKET_NAME, FILE_MAPPING[operation]).get()
         object_list = json.loads(response['Body'].read())
+        print(object_list)
 
     except botocore.exceptions.ClientError as e:
         if e.response['Error']['Code'] == "404":
@@ -96,6 +97,7 @@ def create(payload: dict, operation: str) -> dict:
         obj = VALIDATION_MAPPING[operation](obj)  # validation of objects happens here
         print('Object Vaidated')
         obj['id'] = get_max_id(operation) + 1  # get the maximum id of a card, add 1 to that.
+
 
         object_list.append(obj)
 

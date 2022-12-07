@@ -6,13 +6,16 @@ def get_max_id(operation: str) -> int:
     # retrieve information about the largest id for various objects
     print('operation:', operation)
     if operation == "user":
+        print('getting maximum user id')
         users = get_all_users_as_list()
+        print(users)
         if users:
             return max(int(user['id']) for user in users)
         else:
             return 0
     elif operation == "flashcard":
         cards = get_all_cards_as_list()
+
         if cards:
             return max(int(card['id']) for card in cards)
         else:
