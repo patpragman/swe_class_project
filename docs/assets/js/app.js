@@ -4,6 +4,10 @@ const urlEndPoint = "https://c5j7g4oypbub6kqvkbdpmvhhra0njfgr.lambda-url.us-west
 let username = window.sessionStorage.getItem("username");
 let password = window.sessionStorage.getItem("password");
 let card_list = JSON.parse(window.sessionStorage.getItem("return_payload")).objects;
+
+if (card_list == undefined) {
+    card_list = JSON.parse(window.sessionStorage.getItem("return_payload"));
+}
 let card_id = window.sessionStorage.getItem("current_card");
 let viewed = 0 //num of seen cards
 let current_card_object = ""
@@ -243,6 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
     next_button.addEventListener("click", function () {
         if (viewed == card_list.length) {
             window.alert("Congrats. You've reviewed all of your cards.")
+            window.location.href = "user.html"
         } else {
             // move the current card to the bottom of the deck
             card_list.pop()
