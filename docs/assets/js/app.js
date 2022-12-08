@@ -171,49 +171,53 @@ function send_out(data) {
 }
 
 
-function  add_card(){
+function add_card() {
 
     let new_card = {
-    "owner": username,
-    "folder": "test / not import",
-    "front_text" : "new card front!",
-    "back_text": "new card back",
-    "streak": 0,
-    "create_date": "not implemented",
-    "last_study_date": "not implemented",
-    "next_study_due": "not implemented"
+        "owner": username,
+        "folder": "test / not import",
+        "front_text": "new card front!",
+        "back_text": "new card back",
+        "streak": 0,
+        "create_date": "not implemented",
+        "last_study_date": "not implemented",
+        "next_study_due": "not implemented"
     };
 
 
     let data = {
-            operation: "create_flashcard",
-            payload: {
-                username: username,
-                password: password,
-                object: JSON.stringify(new_card)
-            }
+        operation: "create_flashcard",
+        payload: {
+            username: username,
+            password: password,
+            object: new_card
+        }
     };
 
 
     fetch(urlEndPoint, {
-            method: "POST",
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-                //"Access-Control-Allow-Origin": 'https://patpragman.github.io/swe_class_project'
-            },
-            body: JSON.stringify(data)
-        }).then(res => {
-            const data = res.json();
-            return data
-        }).then(data => {
-            let id = data['id'];
-            new_card['id'] = id;
+        method: "POST",
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            //"Access-Control-Allow-Origin": 'https://patpragman.github.io/swe_class_project'
+        },
+        body: JSON.stringify(data)
+    }).then(res => {
+        const data = res.json();
+        return data
+    }).then(data => {
+        // was getting undefined, need to have this as nested dictionary
+        let id = data['return_payload']["id"];
+        new_card['id'] = id;
 
-            card_list.push(new_card);
-            display_specific_card();
-            update_card();
-        });
+        card_list.push(new_card);
+        display_specific_card();
+        //console.log(data)
+        //console.log(card_list)
+        //console.log(new_card["id"], id)
+        update_card();
+    });
 
 }
 
