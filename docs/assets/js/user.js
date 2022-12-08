@@ -1,5 +1,10 @@
+const urlEndPoint = "https://c5j7g4oypbub6kqvkbdpmvhhra0njfgr.lambda-url.us-west-2.on.aws/"
+let username = window.sessionStorage.getItem("username");
+let password = window.sessionStorage.getItem("password");
+
 const all_cards_container = document.getElementById("user_cards");
 const add_card_button = all_cards_container.querySelector(".add-card");
+
 
 get_cards()
 
@@ -42,12 +47,12 @@ function create_card_element(id, front_text) {
 }
 
 // still needs some work
-/*function add_card() {
+function add_card() {
 
     let new_card = {
         "owner": username,
         "folder": "test / not import",
-        "front_text": "new card front!",
+        "front_text": "Here is your new card, click to edit",
         "back_text": "new card back",
         "streak": 0,
         "create_date": "not implemented",
@@ -78,22 +83,16 @@ function create_card_element(id, front_text) {
         const data = res.json();
         return data
     }).then(data => {
-        // was getting undefined, need to have this as nested dictionary
+
         let id = data['return_payload']["id"];
         new_card['id'] = id;
 
-        
+        new_payload = {
+            object: new_card
+        }
+        window.sessionStorage.setItem("return_payload", JSON.stringify(new_payload));
+        console.log(JSON.parse(sessionStorage.getItem("return_payload")))
+        get_cards()
 
-        //console.log(data)
-        //console.log(card_list)
-        //console.log(new_card["id"], id)
-        update_card();
     });
-
-    const card_element = create_card_element(card.id, card.front_text);
-        all_cards_container.insertBefore(card_element, add_card_button);
-        card_element.addEventListener("click", () => {
-        window.sessionStorage.setItem("current_card", card.id)
-        window.location.href = "app.html";
-        })
-} */
+} 

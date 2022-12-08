@@ -158,6 +158,7 @@ function update_card() {
             const data = res.json();
             return data
         }).then(data => {
+            card_list = data["return_payload"]["objects"]
             window.sessionStorage.setItem('return_payload', JSON.stringify(card_list));
         });
 
