@@ -16,6 +16,7 @@ add_card_button.addEventListener("click", () => {
 //get array of cards stored in local storage
 function get_cards() {
     cards = JSON.parse(sessionStorage.getItem("return_payload")).objects
+
     if (cards == undefined) {
         cards = JSON.parse(sessionStorage.getItem("return_payload"))
     }
@@ -92,7 +93,13 @@ function add_card() {
         }
         window.sessionStorage.setItem("return_payload", JSON.stringify(new_payload));
         console.log(JSON.parse(sessionStorage.getItem("return_payload")))
-        get_cards()
+
+        const card_element = create_card_element(new_card.id, new_card.front_text);
+        all_cards_container.insertBefore(card_element, add_card_button);
+        card_element.addEventListener("click", () => {
+            window.sessionStorage.setItem("current_card", new_card.id)
+            window.location.href = "app.html";
+        })
 
     });
 } 
