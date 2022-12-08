@@ -5,7 +5,6 @@ let password = window.sessionStorage.getItem("password");
 const all_cards_container = document.getElementById("user_cards");
 const add_card_button = all_cards_container.querySelector(".add-card");
 
-
 get_cards()
 
 add_card_button.addEventListener("click", () => {
@@ -74,6 +73,13 @@ function add_card() {
         }
     };
 
+    let card_list = JSON.parse(sessionStorage.getItem("return_payload")).objects
+
+    if (card_list == undefined) {
+        card_list = []
+    }
+
+    console.log(card_list)
 
     fetch(urlEndPoint, {
         method: "POST",
@@ -89,12 +95,15 @@ function add_card() {
     }).then(data => {
 
         let id = data['return_payload']["id"];
+        //console.log(data)
         new_card['id'] = id;
 
         new_payload = {
             object: new_card
         }
-        window.sessionStorage.setItem("return_payload", JSON.stringify(new_payload));
+
+        card_list.push(new_card)
+        window.sessionStorage.setItem("return_payload", JSON.stringify(card_list));
         console.log(JSON.parse(sessionStorage.getItem("return_payload")))
 
         const card_element = create_card_element(new_card.id, new_card.front_text);
