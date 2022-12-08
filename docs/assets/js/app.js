@@ -19,6 +19,7 @@ const add_card_button = app_buttons.querySelector("#add_card")
 const prev_button = app_window.querySelector("#previous_card")
 const next_button = app_window.querySelector("#next_card")
 const edit_button = app_buttons.querySelector("#edit_card")
+const delete_button = app_buttons.querySelector("#delete_card")
 
 card_list = shuffleCards(card_list)
 display_specific_card()
@@ -226,6 +227,35 @@ function add_card() {
 
 }
 
+function delete_card() {
+    let data = {
+        operation: "delete_card_by_id",
+        payload: {
+            username: username,
+            password: password,
+            id: current_card_object["id"]
+        }
+    };
+
+    fetch(urlEndPoint, {
+        method: "POST",
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            //"Access-Control-Allow-Origin": 'https://patpragman.github.io/swe_class_project'
+        },
+        body: JSON.stringify(data)
+    }).then(res => {
+        const data = res.json();
+        return data
+    }).then(data => {
+        //card_list = data["return_payload"]["objects"]
+        //window.sessionStorage.setItem('return_payload', JSON.stringify(card_list));
+        console.log(data)
+
+    });
+
+}
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -263,6 +293,9 @@ document.addEventListener("DOMContentLoaded", () => {
     edit_button.addEventListener("click", update_card)
 
     add_card_button.addEventListener("click", add_card)
+
+    delete_button.addEventListener("click", delete_card)
+
 
 
 })

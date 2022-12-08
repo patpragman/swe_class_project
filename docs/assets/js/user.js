@@ -21,15 +21,18 @@ function get_cards() {
         cards = JSON.parse(sessionStorage.getItem("return_payload"))
     }
 
-    cards.forEach((card) => {
-        const card_element = create_card_element(card.id, card.front_text);
-        all_cards_container.insertBefore(card_element, add_card_button);
-        card_element.addEventListener("click", () => {
-            window.sessionStorage.setItem("current_card", card.id)
-            window.location.href = "app.html";
+    if (Object.keys(cards).length === 0) {
+        add_card()
+    } else {
+        cards.forEach((card) => {
+            const card_element = create_card_element(card.id, card.front_text);
+            all_cards_container.insertBefore(card_element, add_card_button);
+            card_element.addEventListener("click", () => {
+                window.sessionStorage.setItem("current_card", card.id)
+                window.location.href = "app.html";
+            })
         })
-    })
-
+    }
 }
 
 //create new card html --> moving to another page?
@@ -54,7 +57,7 @@ function add_card() {
         "owner": username,
         "folder": "test / not import",
         "front_text": "Here is your new card, click to edit",
-        "back_text": "new card back",
+        "back_text": "press edit button...",
         "streak": 0,
         "create_date": "not implemented",
         "last_study_date": "not implemented",

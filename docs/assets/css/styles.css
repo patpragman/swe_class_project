@@ -486,7 +486,7 @@ img {
 
 #add_card {
   position: relative;
-  right: 20px;
+  right: 10px;
   display: inline-block;
   background-color: var(--title-color);
   width: 200px;
@@ -499,6 +499,20 @@ img {
 }
 
 #edit_card {
+  position: relative;
+  left: 10px;
+  display: inline-block;
+  background-color: var(--title-color);
+  width: 200px;
+  border: 3px solid var(--first-color-dark);
+  color: var(--title-color-black);
+  font-weight: var(--font-bold);
+  cursor: pointer;
+  transition: background .3s;
+  border-radius: 30px;
+}
+
+#delete_card {
   position: relative;
   left: 20px;
   display: inline-block;
