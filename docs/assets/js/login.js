@@ -92,7 +92,8 @@ async function createdNewUser() {
 
         const res = await fetch_login_json(data)
 
-        if (res["return_payload"]["success"]) {
+        console.log(res)
+        if (res["success"]) {
             window.alert("account created!")
             store_info({}, singupUsernameInput.value, signupPasswordInput.value)
             setLoginMessage(createAccountForm, "success", "Account Created!")
