@@ -153,6 +153,10 @@ for card in return_payload['objects']:
         assert card['front_text'] == updating_card.front_text
         assert card['back_text'] == updating_card.back_text
 
+
+
+
+
 print('testing delete functionality')
 delete_card_test = {
     "operation": "delete_card_by_id",
@@ -165,9 +169,8 @@ delete_card_test = {
 
 post_request = requests.post(url, json=delete_card_test)
 print(post_request.json())
+return_payload = post_request.json()
 assert post_request.status_code == 200
-response = post_request.json()
-return_payload = response['return_payload']
 print(return_payload)
 
 for card in return_payload['objects']:
