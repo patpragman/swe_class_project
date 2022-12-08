@@ -249,10 +249,10 @@ function delete_card() {
         const data = res.json();
         return data
     }).then(data => {
-        //card_list = data["return_payload"]["objects"]
-        //window.sessionStorage.setItem('return_payload', JSON.stringify(card_list));
+        card_list = data["objects"]
+        window.sessionStorage.setItem('return_payload', JSON.stringify(card_list));
         console.log(data)
-
+        display_specific_card()
     });
 
 }
