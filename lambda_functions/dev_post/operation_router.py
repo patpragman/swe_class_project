@@ -2,7 +2,7 @@ from collections.abc import Callable
 from create import create_flashcard, create_user
 from retrieve import get_all_user_cards
 from update import update_card_by_id
-
+from delete import delete_flashcard
 
 def retrieve_operation(operation: str):
     """
@@ -20,6 +20,8 @@ def retrieve_operation(operation: str):
     print(f'getting result for operation \'{operation}\'')
     if operation == "get_cards":
         return lambda payload: get_all_user_cards(payload)
+    elif operation == "delete_card_by_id":
+        return lambda payload: delete_flashcard(payload)
     elif operation == "create_flashcard":
         return lambda payload: create_flashcard(payload)  # return the create flashcard function
     elif operation == "user":

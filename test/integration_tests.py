@@ -103,7 +103,7 @@ for i in range(0, 10):
 
 get_cards_test_json = {
     "operation": "get_cards",
-    "payload":{
+    "payload": {
         "username": "patrick",
         "password": "pass_test",
     }
@@ -113,7 +113,6 @@ post_request = requests.post(url, json=get_cards_test_json)
 print(post_request)
 print(post_request.text)
 assert post_request.status_code == 200
-
 
 updating_card = FlashCard(
     owner="patrick",
@@ -128,7 +127,7 @@ updating_card = FlashCard(
 
 update_card_test = {
     "operation": "update_card",
-    "payload":{
+    "payload": {
         "username": "patrick",
         "password": "pass_test",
         "id": 2,
@@ -142,12 +141,10 @@ print('testing update function')
 print(post_request.json())
 assert post_request.status_code == 200
 
-
 print('retrieving json')
 response = post_request.json()
 return_payload = response['return_payload']
 print(return_payload)
-
 
 print('testing cards to check update...')
 for card in return_payload['objects']:
@@ -155,3 +152,24 @@ for card in return_payload['objects']:
     if card['id'] == 2:
         assert card['front_text'] == updating_card.front_text
         assert card['back_text'] == updating_card.back_text
+
+print('testing delete functionality')
+delete_card_test = {
+    "operation": "delete_card_by_id",
+    "payload": {
+        "username": "patrick",
+        "password": "pass_test",
+        "id": 2,
+    }
+}
+
+post_request = requests.post(url, json=delete_card_test)
+print(post_request.json())
+assert post_request.status_code == 200
+response = post_request.json()
+return_payload = response['return_payload']
+print(return_payload)
+
+for card in return_payload['objects']:
+    if card['id'] == 2:
+        assert False
